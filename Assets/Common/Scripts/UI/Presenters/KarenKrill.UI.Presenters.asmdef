@@ -1,0 +1,16 @@
+{
+    "name": "KarenKrill.UI.Presenters",
+    "rootNamespace": "KarenKrill.UI.Presenters",
+    "references": [
+        "GUID:760c2e9496ca26e4d8f30deca2d52b53"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

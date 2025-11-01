@@ -1,0 +1,16 @@
+{
+    "name": "KarenKrill.UI.Views.Abstractions",
+    "rootNamespace": "KarenKrill.UI.Views.Abstractions",
+    "references": [
+        "GUID:9ce69da7243473a4f8e5dd1e9dbae22d"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

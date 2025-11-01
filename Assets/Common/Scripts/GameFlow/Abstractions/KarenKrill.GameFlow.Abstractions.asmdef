@@ -1,0 +1,16 @@
+{
+    "name": "KarenKrill.GameFlow.Abstractions",
+    "rootNamespace": "KarenKrill.GameFlow.Abstractions",
+    "references": [
+        "GUID:65d3750065b68574288560ac45c5e3e0"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

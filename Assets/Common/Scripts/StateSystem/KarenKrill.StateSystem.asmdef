@@ -1,0 +1,16 @@
+{
+    "name": "KarenKrill.StateSystem",
+    "rootNamespace": "KarenKrill.StateSystem",
+    "references": [
+        "GUID:a00509254bb803a4d89b998f2d85ff80"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

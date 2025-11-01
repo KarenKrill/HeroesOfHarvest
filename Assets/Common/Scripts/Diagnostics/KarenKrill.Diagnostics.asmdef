@@ -1,0 +1,17 @@
+{
+    "name": "KarenKrill.Diagnostics",
+    "rootNamespace": "KarenKrill.Diagnostics",
+    "references": [
+        "GUID:eb77829cf584bef44aef3b2d63d955db",
+        "GUID:2e99e42ee65569241a08ab41d4155790"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

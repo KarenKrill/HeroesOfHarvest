@@ -1,0 +1,14 @@
+{
+    "name": "KarenKrill.Instantiattion",
+    "rootNamespace": "KarenKrill.Instantiattion",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,0 +1,17 @@
+{
+    "name": "KarenKrill.UI.Views",
+    "rootNamespace": "KarenKrill.UI.Views",
+    "references": [
+        "GUID:9ce69da7243473a4f8e5dd1e9dbae22d",
+        "GUID:7a46791a36c29db4382df4ea59e1f085"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
