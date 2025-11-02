@@ -99,12 +99,10 @@ namespace HeroesOfHarvest.Input
                 case ActionMap.Player:
                     _playerControls.UI.Disable();
                     _playerControls.Player.Enable();
-                    Cursor.lockState = CursorLockMode.Locked;
                     break;
                 case ActionMap.UI:
                     _playerControls.Player.Disable();
                     _playerControls.UI.Enable();
-                    Cursor.lockState = CursorLockMode.None;
                     break;
                 default:
                     throw new NotImplementedException($"\"{actionMap}\" {nameof(ActionMap)} setting isn't implemented");
