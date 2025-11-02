@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.karenkrill.unicore": {
+      "version": "https://github.com/KarenKrill/UniCore.git?path=Assets/UniCore",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "e83587304df438c19fa7879f4decc574bf7a11eb"
+    },
     "com.unity.ai.navigation": {
       "version": "2.0.7",
       "depth": 0,
