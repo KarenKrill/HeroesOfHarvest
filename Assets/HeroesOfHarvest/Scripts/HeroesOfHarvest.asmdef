@@ -2,7 +2,20 @@
     "name": "HeroesOfHarvest",
     "rootNamespace": "HeroesOfHarvest",
     "references": [
-        "GUID:0d8beb7f090555447a6cf5ce9e54dbb4"
+        "GUID:0d8beb7f090555447a6cf5ce9e54dbb4",
+        "GUID:a00509254bb803a4d89b998f2d85ff80",
+        "GUID:760c2e9496ca26e4d8f30deca2d52b53",
+        "GUID:7918e3ff5bad41c46abe1cadc666f8ec",
+        "GUID:5565d505d71d35347968d74aadef2618",
+        "GUID:7f007642e137ecb449a3e9961d029924",
+        "GUID:c7d32845b9c2493418a847d10d7aa0d4",
+        "GUID:2e99e42ee65569241a08ab41d4155790",
+        "GUID:c4d2c914c542f7a44a74a26c3bb547c1",
+        "GUID:f9f8cf945412fb14cb92e8e58a58b795",
+        "GUID:f6e1d2a21bbc1ee42b8d01ce5e90444c",
+        "GUID:0ada9944fe032dc4eb70c14eacf34730",
+        "GUID:847773bcb9e897349a9e8bb57d876554",
+        "GUID:12e87b81818a9d94b9849983a8d75f87"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

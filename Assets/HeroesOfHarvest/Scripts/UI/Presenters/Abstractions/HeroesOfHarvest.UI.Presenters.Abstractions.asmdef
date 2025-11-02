@@ -1,0 +1,18 @@
+{
+    "name": "HeroesOfHarvest.UI.Presenters.Abstractions",
+    "rootNamespace": "HeroesOfHarvest.UI.Presenters.Abstractions",
+    "references": [
+        "GUID:760c2e9496ca26e4d8f30deca2d52b53",
+        "GUID:7a46791a36c29db4382df4ea59e1f085",
+        "GUID:8a5a7397b044f6f41ad30236064a8e13"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
