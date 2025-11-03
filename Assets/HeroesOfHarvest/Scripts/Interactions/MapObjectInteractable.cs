@@ -1,12 +1,11 @@
-﻿using UnityEngine;
-
+﻿using KarenKrill.UniCore.Interactions.Abstractions;
+using UnityEngine;
+using UnityEngine.UI;
 using Zenject;
-
-using KarenKrill.UniCore.Interactions.Abstractions;
 
 namespace HeroesOfHarvest.Interactions
 {
-    public class BuildInteractable : OutlineInteractableBase, IInteractable
+    public class MapObjectInteractable : OutlineInteractableBase, IInteractable
     {
         [Inject]
         public void Initialize(ILogger logger)
