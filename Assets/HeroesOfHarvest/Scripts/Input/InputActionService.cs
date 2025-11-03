@@ -1,18 +1,22 @@
-﻿using System;
-
+﻿using HeroesOfHarvest.Input.Abstractions;
+using KarenKrill.UniCore.Input.Abstractions;
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
-using KarenKrill.UniCore.Input.Abstractions;
 
 namespace HeroesOfHarvest.Input
 {
     public class InputActionService : IBasicActionsProvider,
+        IStrategyGameActionsProvider,
         IBasicUIActionsProvider,
         IBasicPlayerActionsProvider,
         InputActionCollection.IPlayerActions,
         InputActionCollection.IUIActions
     {
+        public Vector2 LastCameraLookDelta { get; private set; }
+        public Vector2 LastCameraMoveDelta { get; private set; }
+        public Vector2 LastPointDelta { get; private set; }
+
         #region Player Actions Info
 
         public Vector2 LastLookDelta { get; private set; }
@@ -36,6 +40,15 @@ namespace HeroesOfHarvest.Input
         #endregion
 
 #nullable enable
+
+        public event LookDelegate? CameraLook;
+        public event Action? CameraLookCancel;
+        public event Action? CameraMoveStarted;
+        public event MoveDelegate? CameraMove;
+        public event Action? CameraMoveCancel;
+        public event InteractPointDelegate? InteractPoint;
+        public event Action? InteractClickDown;
+        public event Action? InteractClickUp;
 
         #region Player Actions Events
 
@@ -121,9 +134,35 @@ namespace HeroesOfHarvest.Input
 
         public void OnCameraLook(InputAction.CallbackContext context)
         {
+            if (context.performed)
+            {
+                var lookDelta = context.ReadValue<Vector2>();
+                LastCameraLookDelta = lookDelta;
+                CameraLook?.Invoke(lookDelta);
+            }
+            else if (context.canceled)
+            {
+                LastCameraLookDelta = Vector2.zero;
+                CameraLookCancel?.Invoke();
+            }
         }
         public void OnCameraMove(InputAction.CallbackContext context)
         {
+            if (context.started)
+            {
+                CameraMoveStarted?.Invoke();
+            }
+            else if (context.performed)
+            {
+                var moveDelta = context.ReadValue<Vector2>();
+                LastCameraMoveDelta = moveDelta;
+                CameraMove?.Invoke(moveDelta);
+            }
+            else if (context.canceled)
+            {
+                LastCameraMoveDelta = Vector2.zero;
+                CameraMoveCancel?.Invoke();
+            }
         }
         public void OnLook(InputAction.CallbackContext context)
         {
@@ -262,8 +301,16 @@ namespace HeroesOfHarvest.Input
             if (context.performed)
             {
                 var value = context.ReadValue<Vector2>();
-                LastPointValue = value;
-                Point?.Invoke(value);
+                if (_playerControls.UI.enabled)
+                {
+                    LastPointValue = value;
+                    Point?.Invoke(value);
+                }
+                else
+                {
+                    LastPointDelta = value;
+                    InteractPoint?.Invoke(value);
+                }
             }
             else if (context.canceled)
             {
@@ -338,7 +385,21 @@ namespace HeroesOfHarvest.Input
             if (context.performed)
             {
                 _logger.Log($"{nameof(OnClick)} performed");
-                Click?.Invoke();
+                if (_playerControls.UI.enabled)
+                {
+                    Click?.Invoke();
+                }
+                else
+                {
+                    if (context.action.WasReleasedThisFrame())
+                    {
+                        InteractClickUp?.Invoke();
+                    }
+                    else
+                    {
+                        InteractClickDown?.Invoke();
+                    }
+                }
             }
         }
         public void OnRightClick(InputAction.CallbackContext context)
