@@ -9,9 +9,10 @@ namespace HeroesOfHarvest.Interactions
     public class PlayerInteractor : InteractorBase, IInteractor
     {
         [Inject]
-        public void Initialize(ILogger logger)
+        public void Initialize(ILogger logger, IUnitMover unitMover)
         {
             _logger = logger;
+            _unitMover = unitMover;
         }
 
         protected override void OnInteraction(IInteractable interactable)
@@ -19,6 +20,10 @@ namespace HeroesOfHarvest.Interactions
             if (interactable is InteractableBase interactableBase)
             {
                 _logger.Log($"{name} interacts with {interactableBase.name}");
+                if (interactable is MapObjectInteractable mapObjectInteractable)
+                {
+                    _unitMover.GoTo(mapObjectInteractable.EntryTransform.position);
+                }
             }
         }
         protected override void OnInteractionAvailabilityChanged(IInteractable interactable, bool available)
@@ -27,5 +32,6 @@ namespace HeroesOfHarvest.Interactions
         }
 
         private ILogger _logger;
+        private IUnitMover _unitMover;
     }
 }

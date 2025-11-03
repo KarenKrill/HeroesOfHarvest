@@ -7,6 +7,9 @@ namespace HeroesOfHarvest.Interactions
 {
     public class MapObjectInteractable : OutlineInteractableBase, IInteractable
     {
+        [field: SerializeField]
+        public Transform EntryTransform { get; private set; }
+
         [Inject]
         public void Initialize(ILogger logger)
         {
