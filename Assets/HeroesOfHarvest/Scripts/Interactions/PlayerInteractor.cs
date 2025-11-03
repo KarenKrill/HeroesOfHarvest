@@ -16,7 +16,10 @@ namespace HeroesOfHarvest.Interactions
 
         protected override void OnInteraction(IInteractable interactable)
         {
-            _logger.Log($"{name} interacts with {(interactable as InteractableBase).name}");
+            if (interactable is InteractableBase interactableBase)
+            {
+                _logger.Log($"{name} interacts with {interactableBase.name}");
+            }
         }
         protected override void OnInteractionAvailabilityChanged(IInteractable interactable, bool available)
         {
