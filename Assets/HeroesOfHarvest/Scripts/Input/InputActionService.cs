@@ -119,6 +119,12 @@ namespace HeroesOfHarvest.Input
 
         #region Player Actions
 
+        public void OnCameraLook(InputAction.CallbackContext context)
+        {
+        }
+        public void OnCameraMove(InputAction.CallbackContext context)
+        {
+        }
         public void OnLook(InputAction.CallbackContext context)
         {
             if (context.performed)
@@ -341,6 +347,10 @@ namespace HeroesOfHarvest.Input
             {
                 _logger.Log($"{nameof(OnRightClick)} performed");
                 RightClick?.Invoke();
+            }
+            else if (context.canceled)
+            {
+                _logger.Log($"{nameof(OnRightClick)} canceled");
             }
         }
         public void OnMiddleClick(InputAction.CallbackContext context)

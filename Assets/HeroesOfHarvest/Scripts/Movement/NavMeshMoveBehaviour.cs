@@ -15,6 +15,8 @@ namespace HeroesOfHarvest
         [SerializeField]
         private NavMeshAgent _navMeshAgent;
 
+        private readonly RaycastHit[] _raycastHits = new RaycastHit[1];
+
         private void Awake()
         {
             if (_camera == null)
@@ -34,11 +36,11 @@ namespace HeroesOfHarvest
 
         private void OnStartMoveActionPerformed(InputAction.CallbackContext ctx)
         {
-            var mousePosition = Mouse.current.position.ReadValue();
-            var mouseRay = _camera.ScreenPointToRay(mousePosition);
-            if (Physics.Raycast(mouseRay, out var hit, 100, _walkableLayers))
+            var pointerPosition = Pointer.current.position.ReadValue();
+            var mouseRay = _camera.ScreenPointToRay(pointerPosition);
+            if (Physics.RaycastNonAlloc(mouseRay, _raycastHits, 100, _walkableLayers) == 1)
             {
-                _navMeshAgent.destination = hit.point;
+                _navMeshAgent.destination = _raycastHits[0].point;
             }
         }
     }
