@@ -376,7 +376,6 @@ namespace HeroesOfHarvest.Input
         {
             if (context.performed)
             {
-                _logger.Log($"{nameof(OnCancel)} performed");
                 Cancel?.Invoke();
             }
         }
@@ -384,7 +383,6 @@ namespace HeroesOfHarvest.Input
         {
             if (context.performed)
             {
-                _logger.Log($"{nameof(OnClick)} performed");
                 if (_playerControls.UI.enabled)
                 {
                     Click?.Invoke();
@@ -406,19 +404,16 @@ namespace HeroesOfHarvest.Input
         {
             if (context.performed)
             {
-                _logger.Log($"{nameof(OnRightClick)} performed");
                 RightClick?.Invoke();
             }
             else if (context.canceled)
             {
-                _logger.Log($"{nameof(OnRightClick)} canceled");
             }
         }
         public void OnMiddleClick(InputAction.CallbackContext context)
         {
             if (context.performed)
             {
-                _logger.Log($"{nameof(OnMiddleClick)} performed");
                 MiddleClick?.Invoke();
             }
         }
