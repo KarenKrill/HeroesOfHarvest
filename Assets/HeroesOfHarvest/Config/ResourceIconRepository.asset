@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98d843acfaf07194e8906fa74bbc2840, type: 3}
+  m_Name: ResourceIconRepository
+  m_EditorClassIdentifier: 
+  _icons:
+    _serializedList:
+    - Key: 0
+      Value: {fileID: 217022006, guid: 0708eef66433af24ca448fa6d0d28a6f, type: 3}
+    - Key: 1
+      Value: {fileID: -496010123, guid: 0708eef66433af24ca448fa6d0d28a6f, type: 3}
+    - Key: 2
+      Value: {fileID: -2069512155, guid: 0708eef66433af24ca448fa6d0d28a6f, type: 3}
+    - Key: 3
+      Value: {fileID: 1236288230, guid: 0708eef66433af24ca448fa6d0d28a6f, type: 3}
+    - Key: 4
+      Value: {fileID: -644914744, guid: 0708eef66433af24ca448fa6d0d28a6f, type: 3}
+    - Key: 5
+      Value: {fileID: -1294456097, guid: 0708eef66433af24ca448fa6d0d28a6f, type: 3}
+    - Key: 6
+      Value: {fileID: 1084093481, guid: 0708eef66433af24ca448fa6d0d28a6f, type: 3}

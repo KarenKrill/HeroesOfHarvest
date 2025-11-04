@@ -340,4 +340,6 @@ MonoBehaviour:
   - {fileID: 8134017537965800947, guid: d7e43f8bf50ba244485f4dbbb0d91b09, type: 3}
   - {fileID: 3657630308797553860, guid: d2119769af669c94f8a74e556757f544, type: 3}
   - {fileID: 3657630308797553860, guid: fb28301b838f9214fa287678afee9d3c, type: 3}
+  - {fileID: 8134017537965800947, guid: cf6e4ebd957f8bf4f9e7c06040248e91, type: 3}
   _diagnosticsProvider: {fileID: 1573532580524690398}
+  _resourceIconRepository: {fileID: 11400000, guid: f309a342ed5dc714380c2590cc18868d, type: 2}

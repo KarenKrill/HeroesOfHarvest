@@ -27,6 +27,7 @@ namespace HeroesOfHarvest
             InstallInput();
             InstallLogging();
             Container.BindInterfacesAndSelfTo<ResourceManager>().FromNew().AsSingle();
+            Container.BindInterfacesAndSelfTo<ResourceIconRepository>().FromInstance(_resourceIconRepository).AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerSession>().FromNew().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<DiagnosticsProvider>().FromInstance(_diagnosticsProvider).AsSingle();
             Container.BindInterfacesAndSelfTo<InteractionTargetRegistry>().FromNew().AsSingle();
@@ -42,6 +43,8 @@ namespace HeroesOfHarvest
         private List<GameObject> _uiPrefabs;
         [SerializeField]
         private DiagnosticsProvider _diagnosticsProvider;
+        [SerializeField]
+        private ResourceIconRepository _resourceIconRepository;
 
         private void InstallLogging()
         {

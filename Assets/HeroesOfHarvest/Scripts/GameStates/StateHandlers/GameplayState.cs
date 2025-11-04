@@ -8,6 +8,8 @@ using KarenKrill.UniCore.StateSystem.Abstractions;
 namespace HeroesOfHarvest.GameStates
 {
     using Abstractions;
+    using HeroesOfHarvest.UI.Views.Abstractions;
+    using KarenKrill.UniCore.UI.Presenters.Abstractions;
 
     public class GameplayState : PresentableStateHandlerBase<GameState>, IStateHandler<GameState>
     {
@@ -16,7 +18,9 @@ namespace HeroesOfHarvest.GameStates
         public GameplayState(ILogger logger,
             IGameFlow gameFlow,
             IBasicActionsProvider actionsProvider,
-            IBasicPlayerActionsProvider playerActionsProvider)
+            IBasicPlayerActionsProvider playerActionsProvider,
+            IPresenter<IResourceManagerView> resourceManagerPresenter)
+            : base(resourceManagerPresenter)
         {
             _logger = logger;
             _gameFlow = gameFlow;

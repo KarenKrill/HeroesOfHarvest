@@ -2,12 +2,13 @@
     "name": "HeroesOfHarvest.UI.Presenters",
     "rootNamespace": "HeroesOfHarvest.UI.Presenters",
     "references": [
+        "GUID:9ce69da7243473a4f8e5dd1e9dbae22d",
+        "GUID:eb77829cf584bef44aef3b2d63d955db",
         "GUID:760c2e9496ca26e4d8f30deca2d52b53",
         "GUID:7a46791a36c29db4382df4ea59e1f085",
-        "GUID:eb77829cf584bef44aef3b2d63d955db",
+        "GUID:f6e1d2a21bbc1ee42b8d01ce5e90444c",
         "GUID:593790f6cd5b01a4ca4142e240878b0b",
-        "GUID:8a5a7397b044f6f41ad30236064a8e13",
-        "GUID:f6e1d2a21bbc1ee42b8d01ce5e90444c"
+        "GUID:8a5a7397b044f6f41ad30236064a8e13"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

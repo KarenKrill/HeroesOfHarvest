@@ -23,11 +23,13 @@ namespace HeroesOfHarvest
         public void AddResource(ResourceType resourceType, int amount)
         {
             _resources[resourceType] += amount;
+            ResourceChanged?.Invoke(resourceType, _resources[resourceType]);
             PrintResources();
         }
         public void RemoveResource(ResourceType resourceType, int amount)
         {
             _resources[resourceType] -= amount;
+            ResourceChanged?.Invoke(resourceType, _resources[resourceType]);
         }
 
         private readonly Dictionary<ResourceType, int> _resources = new();
