@@ -2,7 +2,8 @@
     "name": "HeroesOfHarvest.Movement",
     "rootNamespace": "HeroesOfHarvest.Movement",
     "references": [
-        "GUID:75469ad4d38634e559750d17036d5f7c"
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:f6e1d2a21bbc1ee42b8d01ce5e90444c"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

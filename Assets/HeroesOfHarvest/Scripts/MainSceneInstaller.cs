@@ -1,16 +1,28 @@
 using UnityEngine;
 using Zenject;
 
+using HeroesOfHarvest.Movement;
+
 namespace HeroesOfHarvest
 {
     public class MainSceneInstaller : MonoInstaller
     {
         public override void InstallBindings()
         {
-            Container.BindInterfacesAndSelfTo<NavMeshMoveBehaviour>().FromInstance(_playerUnitMover).AsSingle();
+            Container.BindInterfacesAndSelfTo<UnitMover>()
+                .FromInstance(_unitMover)
+                .AsSingle()
+                .OnInstantiated((ctx, target) =>
+                {
+                    var playerSession = ctx.Container.Resolve<PlayerSession>();
+                    playerSession.ActiveUnit = _unitBehaviour;
+                })
+                .NonLazy();
         }
 
         [SerializeField]
-        private NavMeshMoveBehaviour _playerUnitMover;
+        private UnitMover _unitMover;
+        [SerializeField]
+        private UniInteractor _unitBehaviour;
     }
 }

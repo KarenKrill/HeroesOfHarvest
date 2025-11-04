@@ -26,6 +26,8 @@ namespace HeroesOfHarvest
             InstallSettings();
             InstallInput();
             InstallLogging();
+            Container.BindInterfacesAndSelfTo<ResourceManager>().FromNew().AsSingle();
+            Container.BindInterfacesAndSelfTo<PlayerSession>().FromNew().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<DiagnosticsProvider>().FromInstance(_diagnosticsProvider).AsSingle();
             Container.BindInterfacesAndSelfTo<InteractionTargetRegistry>().FromNew().AsSingle();
             Container.BindInterfacesAndSelfTo<GameFlow>().AsSingle();

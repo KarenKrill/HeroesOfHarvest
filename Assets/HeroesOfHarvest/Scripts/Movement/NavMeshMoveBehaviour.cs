@@ -5,25 +5,38 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
 
-namespace HeroesOfHarvest
+namespace HeroesOfHarvest.Movement
 {
-    public class NavMeshMoveBehaviour : MonoBehaviour, IUnitMover
+    public class NavMeshMoveBehaviour : MonoBehaviour
     {
         public event Action PathCancelled;
         public event Action PathCompleted;
 
         public float CompletionMonitorPeriodTime { get; set; } = 0.3f;
 
-        public void GoTo(Vector3 target)
+        public bool TryGoTo(Vector3 target)
         {
             _isExternalTarget = true;
             if (!TryGoTo(target, true))
             {
                 _isExternalTarget = false;
+                return false;
             }
+            return true;
         }
 
-        private bool _isExternalTarget = false;
+        protected virtual bool IsDestinationValid(Vector3 destination) => true;
+        protected virtual void OnPathCanceled()
+        {
+            _isExternalTarget = false;
+            StopCoroutine(_completionMonitorCoroutine);
+            _completionMonitorCoroutine = null;
+            PathCancelled?.Invoke();
+        }
+        protected virtual void OnPathCompleted()
+        {
+            PathCompleted?.Invoke();
+        }
 
         [SerializeField]
         private InputActionReference _startMoveAction;
@@ -38,6 +51,7 @@ namespace HeroesOfHarvest
 
         private readonly RaycastHit[] _raycastHits = new RaycastHit[5];
         private Coroutine _completionMonitorCoroutine = null;
+        private bool _isExternalTarget = false;
 
         private void Awake()
         {
@@ -64,23 +78,15 @@ namespace HeroesOfHarvest
             {
                 if (IsWalkableRaycastHit(raycastHit.Value))
                 {
-                    _ = TryGoTo(raycastHit.Value.point);
+                    var destination = raycastHit.Value.point;
+                    if (IsDestinationValid(destination))
+                    {
+                        _ = TryGoTo(destination, false);
+                    }
                 }
             }
         }
-        private void OnPathCanceled()
-        {
-            _isExternalTarget = false;
-            StopCoroutine(_completionMonitorCoroutine);
-            _completionMonitorCoroutine = null;
-            PathCancelled?.Invoke();
-        }
-        private void OnPathCompleted()
-        {
-            PathCompleted?.Invoke();
-        }
-
-        private bool TryGoTo(Vector3 destination, bool ignoreUnreachable = false)
+        private bool TryGoTo(Vector3 destination, bool ignoreUnreachable)
         {
             var navMeshPath = new NavMeshPath();
             if (_navMeshAgent.CalculatePath(destination, navMeshPath))

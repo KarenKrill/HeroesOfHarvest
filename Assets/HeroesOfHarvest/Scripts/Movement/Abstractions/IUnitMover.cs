@@ -3,15 +3,17 @@
 using System;
 using UnityEngine;
 
-namespace HeroesOfHarvest
+using HeroesOfHarvest.Abstractions;
+
+namespace HeroesOfHarvest.Movement
 {
     public interface IUnitMover
     {
-        event Action? PathCancelled;
-        event Action? PathCompleted;
+        event Action<IUnit>? UnitPathCancelled;
+        event Action<IUnit>? UnitPathCompleted;
 
         float CompletionMonitorPeriodTime { get; set; }
 
-        void GoTo(Vector3 target);
+        bool TrySend(IUnit unit, Vector3 position);
     }
 }
