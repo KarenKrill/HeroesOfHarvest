@@ -12,7 +12,7 @@ namespace HeroesOfHarvest.Movement
         public event Action PathCancelled;
         public event Action PathCompleted;
 
-        public float CompletionMonitorPeriodTime { get; set; } = 0.3f;
+        public float CompletionMonitorPeriodTime { get; set; } = 0.1f;
 
         public bool TryGoTo(Vector3 target)
         {
@@ -30,6 +30,7 @@ namespace HeroesOfHarvest.Movement
         {
             _isExternalTarget = false;
             StopCoroutine(_completionMonitorCoroutine);
+            _animator.SetFloat("InputMagnitude", 0);
             _completionMonitorCoroutine = null;
             PathCancelled?.Invoke();
         }
@@ -47,7 +48,11 @@ namespace HeroesOfHarvest.Movement
         [SerializeField]
         private NavMeshAgent _navMeshAgent;
         [SerializeField]
+        private Animator _animator;
+        [SerializeField]
         private float _maxTargetDetectDistance = 100;
+        [SerializeField]
+        private float _facingToTargetSpeed = 5f;
 
         private readonly RaycastHit[] _raycastHits = new RaycastHit[5];
         private Coroutine _completionMonitorCoroutine = null;
@@ -97,18 +102,13 @@ namespace HeroesOfHarvest.Movement
                     if (ignoreUnreachable || Mathf.Abs(lastCorner.x - destination.x) <= float.Epsilon && Mathf.Abs(lastCorner.z - destination.z) <= float.Epsilon)
                     {
                         _navMeshAgent.path = navMeshPath;
-                        if (_isExternalTarget)
+                        var isExternalTargetCall = ignoreUnreachable; // dirty hack to distinguish between external and internal calls
+                        if (_isExternalTarget && !isExternalTargetCall && _completionMonitorCoroutine != null)
                         {
-                            if (_completionMonitorCoroutine != null)
-                            {
-                                OnPathCanceled();
-                            }
-                            else
-                            {
-                                _completionMonitorCoroutine = StartCoroutine(PathCompletionMonitorCoroutine());
-                            }
-                            return true;
+                            OnPathCanceled();
                         }
+                        else _completionMonitorCoroutine ??= StartCoroutine(PathCompletionMonitorCoroutine());
+                        return true;
                     }
                     else
                     {
@@ -166,13 +166,27 @@ namespace HeroesOfHarvest.Movement
         {
             while (!IsDestinationReached())
             {
-                yield return new WaitForSeconds(CompletionMonitorPeriodTime);
+                FaceToTarget();
+                _animator.SetFloat("InputMagnitude", _navMeshAgent.velocity.magnitude);
+                yield return null;
             }
+            _animator.SetFloat("InputMagnitude", 0);
             if (_isExternalTarget)
             {
                 OnPathCompleted();
             }
             _completionMonitorCoroutine = null;
+        }
+        void FaceToTarget()
+        {
+            var navMeshTransform = _navMeshAgent.transform;
+            var forwardDirection = (_navMeshAgent.destination - navMeshTransform.position).normalized;
+            forwardDirection.y = 0;
+            if (forwardDirection != Vector3.zero)
+            {
+                var targetRotation = Quaternion.LookRotation(forwardDirection);
+                navMeshTransform.rotation = Quaternion.Slerp(navMeshTransform.rotation, targetRotation, Time.deltaTime * _facingToTargetSpeed);
+            }
         }
     }
 }

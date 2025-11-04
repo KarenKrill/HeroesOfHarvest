@@ -23,6 +23,6 @@ namespace HeroesOfHarvest
         [SerializeField]
         private UnitMover _unitMover;
         [SerializeField]
-        private UniInteractor _unitBehaviour;
+        private UnitInteractor _unitBehaviour;
     }
 }
