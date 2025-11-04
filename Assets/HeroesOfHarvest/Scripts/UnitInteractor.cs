@@ -49,16 +49,30 @@ namespace HeroesOfHarvest
 
         private IEnumerator CollectResourcesCoroutine(ResourceFactoryInteractable resourceFactoryInteractable)
         {
-            _animator.SetTrigger(resourceFactoryInteractable.MiningAnimationTrigger);
-            var resourceToConsumeCount = resourceFactoryInteractable.ResourceAmount;
-            for (int i = 0; i < resourceToConsumeCount; i++)
+            resourceFactoryInteractable.ProducingEnabled = false;
+            try
             {
-                _playerSession.ResourceManager.AddResource(resourceFactoryInteractable.ProducedResource, 1);
-                resourceFactoryInteractable.ResourceAmount--;
-                yield return new WaitForSeconds(_miningOneResourceUnitPeriodTime);
+                _animator.SetTrigger(resourceFactoryInteractable.MiningAnimationTrigger);
+                try
+                {
+                    var resourceToConsumeCount = resourceFactoryInteractable.ResourceAmount;
+                    for (int i = 0; i < resourceToConsumeCount; i++)
+                    {
+                        _playerSession.ResourceManager.AddResource(resourceFactoryInteractable.ProducedResource, 1);
+                        resourceFactoryInteractable.ResourceAmount--;
+                        yield return new WaitForSeconds(_miningOneResourceUnitPeriodTime);
+                    }
+                }
+                finally
+                {
+                    _animator.SetTrigger(resourceFactoryInteractable.MiningStopAnimationTrigger);
+                }
             }
-            _animator.SetTrigger(resourceFactoryInteractable.MiningStopAnimationTrigger);
-            _isBusy = false;
+            finally
+            {
+                _isBusy = false;
+                resourceFactoryInteractable.ProducingEnabled = true;
+            }
         }
     }
 }

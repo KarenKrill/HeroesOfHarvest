@@ -23,6 +23,8 @@ namespace HeroesOfHarvest.Interactions
 
         public int ResourceAmount { get; set; }
 
+        public bool ProducingEnabled { get; set; } = true;
+
         protected override bool OnInteraction(IInteractor interactor)
         {
             return true;
@@ -50,12 +52,15 @@ namespace HeroesOfHarvest.Interactions
         {
             while (!cancellationToken.IsCancellationRequested)
             {
-                var resAmount = ResourceAmount + ResourceAmountPerSecond;
-                if (resAmount > MaxResourceAmount)
+                if (ProducingEnabled)
                 {
-                    resAmount = MaxResourceAmount;
+                    var resAmount = ResourceAmount + ResourceAmountPerSecond;
+                    if (resAmount > MaxResourceAmount)
+                    {
+                        resAmount = MaxResourceAmount;
+                    }
+                    ResourceAmount = resAmount;
                 }
-                ResourceAmount = resAmount;
                 yield return new WaitForSeconds(1);
             }
             _produceCoroutine = null;
