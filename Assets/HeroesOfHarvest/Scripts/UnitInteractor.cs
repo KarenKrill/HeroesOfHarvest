@@ -41,6 +41,8 @@ namespace HeroesOfHarvest
 
         [SerializeField]
         private Animator _animator;
+        [SerializeField]
+        private float _miningOneResourceUnitPeriodTime = .5f;
 
         private IPlayerSession _playerSession;
         private bool _isBusy = false;
@@ -53,7 +55,7 @@ namespace HeroesOfHarvest
             {
                 _playerSession.ResourceManager.AddResource(resourceFactoryInteractable.ProducedResource, 1);
                 resourceFactoryInteractable.ResourceAmount--;
-                yield return new WaitForSeconds(.25f);
+                yield return new WaitForSeconds(_miningOneResourceUnitPeriodTime);
             }
             _animator.SetTrigger(resourceFactoryInteractable.MiningStopAnimationTrigger);
             _isBusy = false;
