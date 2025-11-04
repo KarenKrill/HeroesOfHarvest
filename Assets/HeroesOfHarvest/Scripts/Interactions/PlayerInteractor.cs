@@ -22,6 +22,8 @@ namespace HeroesOfHarvest.Interactions
                 _logger.Log($"{name} interacts with {interactableBase.name}");
                 if (interactable is MapObjectInteractable mapObjectInteractable)
                 {
+                    _unitMover.PathCancelled += OnUnitPathCancelled;
+                    _unitMover.PathCompleted += OnUnitPathCompleted;
                     _unitMover.GoTo(mapObjectInteractable.EntryTransform.position);
                 }
             }
@@ -33,5 +35,18 @@ namespace HeroesOfHarvest.Interactions
 
         private ILogger _logger;
         private IUnitMover _unitMover;
+
+        private void OnUnitPathCancelled()
+        {
+            _unitMover.PathCancelled -= OnUnitPathCancelled;
+            _unitMover.PathCompleted -= OnUnitPathCompleted;
+            Debug.LogWarning("Path cancelled");
+        }
+        private void OnUnitPathCompleted()
+        {
+            _unitMover.PathCancelled -= OnUnitPathCancelled;
+            _unitMover.PathCompleted -= OnUnitPathCompleted;
+            Debug.LogWarning("Path completed");
+        }
     }
 }
