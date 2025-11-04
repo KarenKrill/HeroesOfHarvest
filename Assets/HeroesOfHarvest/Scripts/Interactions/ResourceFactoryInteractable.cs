@@ -16,6 +16,10 @@ namespace HeroesOfHarvest.Interactions
         public int ResourceAmountPerSecond { get; private set; } = 1;
         [field: SerializeField]
         public int MaxResourceAmount { get; private set; } = 20;
+        [field: SerializeField]
+        public string MiningAnimationTrigger { get; private set; } = "StartDigging";
+        [field: SerializeField]
+        public string MiningStopAnimationTrigger { get; private set; } = "StopWork";
 
         public int ResourceAmount { get; set; }
 

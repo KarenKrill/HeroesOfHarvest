@@ -47,7 +47,7 @@ namespace HeroesOfHarvest
 
         private IEnumerator CollectResourcesCoroutine(ResourceFactoryInteractable resourceFactoryInteractable)
         {
-            _animator.SetTrigger("StartDigging");
+            _animator.SetTrigger(resourceFactoryInteractable.MiningAnimationTrigger);
             var resourceToConsumeCount = resourceFactoryInteractable.ResourceAmount;
             for (int i = 0; i < resourceToConsumeCount; i++)
             {
@@ -55,7 +55,7 @@ namespace HeroesOfHarvest
                 resourceFactoryInteractable.ResourceAmount--;
                 yield return new WaitForSeconds(.25f);
             }
-            _animator.SetTrigger("StopWork");
+            _animator.SetTrigger(resourceFactoryInteractable.MiningStopAnimationTrigger);
             _isBusy = false;
         }
     }
