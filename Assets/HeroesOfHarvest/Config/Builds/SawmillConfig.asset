@@ -15,6 +15,6 @@ MonoBehaviour:
   <ProducedResource>k__BackingField: 2
   <ResourceAmountPerSecond>k__BackingField: 2
   <MaxResourceAmount>k__BackingField: 20
-  <MiningAnimationTrigger>k__BackingField: StartDigging
+  <MiningAnimationTrigger>k__BackingField: StartPlanting
   <MiningStopAnimationTrigger>k__BackingField: StopWork
   <MiningSoundEffect>k__BackingField: {fileID: 0}
