@@ -48,31 +48,31 @@ namespace HeroesOfHarvest
         private IPlayerSession _playerSession;
         private bool _isBusy = false;
 
-        private IEnumerator CollectResourcesCoroutine(ResourceFactoryInteractable resourceFactoryInteractable)
+        private IEnumerator CollectResourcesCoroutine(ResourceFactoryInteractable resourceFactory)
         {
-            resourceFactoryInteractable.ProducingEnabled = false;
+            resourceFactory.ProducingEnabled = false;
             try
             {
-                _animator.SetTrigger(resourceFactoryInteractable.MiningAnimationTrigger);
+                _animator.SetTrigger(resourceFactory.BuildConfig.MiningAnimationTrigger);
                 try
                 {
-                    var resourceToConsumeCount = resourceFactoryInteractable.ResourceAmount;
+                    var resourceToConsumeCount = resourceFactory.ResourceAmount;
                     for (int i = 0; i < resourceToConsumeCount; i++)
                     {
-                        _playerSession.ResourceManager.AddResource(resourceFactoryInteractable.ProducedResource, 1);
-                        resourceFactoryInteractable.ResourceAmount--;
+                        _playerSession.ResourceManager.AddResource(resourceFactory.BuildConfig.ProducedResource, 1);
+                        resourceFactory.ResourceAmount--;
                         yield return new WaitForSeconds(_miningOneResourceUnitPeriodTime);
                     }
                 }
                 finally
                 {
-                    _animator.SetTrigger(resourceFactoryInteractable.MiningStopAnimationTrigger);
+                    _animator.SetTrigger(resourceFactory.BuildConfig.MiningStopAnimationTrigger);
                 }
             }
             finally
             {
                 _isBusy = false;
-                resourceFactoryInteractable.ProducingEnabled = true;
+                resourceFactory.ProducingEnabled = true;
             }
         }
     }

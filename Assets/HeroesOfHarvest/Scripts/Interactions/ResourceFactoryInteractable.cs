@@ -6,7 +6,6 @@ using Zenject;
 
 using KarenKrill.UniCore.Interactions.Abstractions;
 
-using HeroesOfHarvest.Abstractions;
 using HeroesOfHarvest.Input.Abstractions;
 
 namespace HeroesOfHarvest.Interactions
@@ -14,16 +13,7 @@ namespace HeroesOfHarvest.Interactions
     public class ResourceFactoryInteractable : MapObjectInteractable, IInteractable
     {
         [field: SerializeField]
-        public ResourceType ProducedResource { get; private set; }
-        [field: SerializeField]
-        public int ResourceAmountPerSecond { get; private set; } = 1;
-        [field: SerializeField]
-        public int MaxResourceAmount { get; private set; } = 20;
-        [field: SerializeField]
-        public string MiningAnimationTrigger { get; private set; } = "StartDigging";
-        [field: SerializeField]
-        public string MiningStopAnimationTrigger { get; private set; } = "StopWork";
-
+        public FactoryBuildConfig BuildConfig { get; private set; }
         public int ResourceAmount
         {
             get => _resourceAmount;
@@ -86,7 +76,7 @@ namespace HeroesOfHarvest.Interactions
 
         private void OnResourceAmountChanged()
         {
-            _progressTextMesh.text = $"{_resourceAmount}/{MaxResourceAmount}";
+            _progressTextMesh.text = $"{_resourceAmount}/{BuildConfig.MaxResourceAmount}";
         }
         private void OnLookOrMove(Vector2 delta)
         {
@@ -99,10 +89,10 @@ namespace HeroesOfHarvest.Interactions
             {
                 if (ProducingEnabled)
                 {
-                    var resAmount = ResourceAmount + ResourceAmountPerSecond;
-                    if (resAmount > MaxResourceAmount)
+                    var resAmount = ResourceAmount + BuildConfig.ResourceAmountPerSecond;
+                    if (resAmount > BuildConfig.MaxResourceAmount)
                     {
-                        resAmount = MaxResourceAmount;
+                        resAmount = BuildConfig.MaxResourceAmount;
                     }
                     ResourceAmount = resAmount;
                 }
