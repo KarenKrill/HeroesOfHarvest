@@ -41,7 +41,7 @@ namespace HeroesOfHarvest
         }
 
         [SerializeField]
-        private Canvas _uiRootCanvas;
+        private Transform _uiRootTransform;
         [SerializeField]
         private Canvas _worldUiRootCanvas;
         [SerializeField]
@@ -128,19 +128,20 @@ namespace HeroesOfHarvest
         }
         private void InstallViewFactory()
         {
-            if (_uiRootCanvas == null)
+            if (_uiRootTransform == null)
             {
-                _uiRootCanvas = FindFirstObjectByType<Canvas>(FindObjectsInactive.Exclude);
-                if (_uiRootCanvas == null)
+                _uiRootTransform = FindFirstObjectByType<Canvas>(FindObjectsInactive.Exclude).transform;
+                if (_uiRootTransform == null)
                 {
                     var canvasGO = new GameObject(nameof(Canvas));
-                    _uiRootCanvas = canvasGO.AddComponent<Canvas>();
-                    _uiRootCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
+                    var canvas = canvasGO.AddComponent<Canvas>();
+                    canvas.renderMode = RenderMode.ScreenSpaceOverlay;
                     canvasGO.AddComponent<CanvasScaler>();
                     canvasGO.AddComponent<GraphicRaycaster>();
+                    _uiRootTransform = canvas.transform;
                 }
             }
-            Container.BindInterfacesAndSelfTo<ViewFactory>().AsSingle().WithArguments(_uiRootCanvas.gameObject, _uiPrefabs);
+            Container.BindInterfacesAndSelfTo<ViewFactory>().AsSingle().WithArguments(_uiRootTransform.gameObject, _uiPrefabs);
         }
         private void InstallPresenterBindings()
         {
