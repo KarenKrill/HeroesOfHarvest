@@ -29,6 +29,7 @@ namespace HeroesOfHarvest
             Container.BindInterfacesAndSelfTo<Canvas>().FromInstance(_worldUiRootCanvas).AsSingle();
             Container.BindInterfacesAndSelfTo<ResourceManager>().FromNew().AsSingle();
             Container.BindInterfacesAndSelfTo<ResourceIconRepository>().FromInstance(_resourceIconRepository).AsSingle();
+            Container.BindInterfacesAndSelfTo<MapObjectRegistry>().FromNew().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerSession>().FromNew().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<DiagnosticsProvider>().FromInstance(_diagnosticsProvider).AsSingle();
             Container.BindInterfacesAndSelfTo<InteractionTargetRegistry>().FromNew().AsSingle();
@@ -48,6 +49,15 @@ namespace HeroesOfHarvest
         private DiagnosticsProvider _diagnosticsProvider;
         [SerializeField]
         private ResourceIconRepository _resourceIconRepository;
+
+        private void OnApplicationQuit()
+        {
+            var gameFlow = Container.Resolve<IGameFlow>();
+            if (gameFlow.State != GameState.Exit)
+            {
+                gameFlow.Exit();
+            }
+        }
 
         private void InstallLogging()
         {

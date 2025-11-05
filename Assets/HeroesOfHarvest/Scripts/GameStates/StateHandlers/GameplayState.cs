@@ -4,13 +4,13 @@ using UnityEngine;
 
 using KarenKrill.UniCore.Input.Abstractions;
 using KarenKrill.UniCore.StateSystem.Abstractions;
+using KarenKrill.UniCore.UI.Presenters.Abstractions;
+
+using HeroesOfHarvest.UI.Views.Abstractions;
+using HeroesOfHarvest.Abstractions;
 
 namespace HeroesOfHarvest.GameStates
 {
-    using Abstractions;
-    using HeroesOfHarvest.UI.Views.Abstractions;
-    using KarenKrill.UniCore.UI.Presenters.Abstractions;
-
     public class GameplayState : PresentableStateHandlerBase<GameState>, IStateHandler<GameState>
     {
         public override GameState State => GameState.Gameplay;
@@ -58,6 +58,9 @@ namespace HeroesOfHarvest.GameStates
     }
     public class GameplayStateContext
     {
+        /// <summary>
+        /// First gameplay state enter after application start
+        /// </summary>
         public bool FirstStart;
         public GameplayStateContext(bool firstStart)
         {

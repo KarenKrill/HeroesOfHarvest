@@ -5,11 +5,11 @@ using UnityEngine;
 using KarenKrill.UniCore.Input.Abstractions;
 using KarenKrill.UniCore.StateSystem.Abstractions;
 
+using HeroesOfHarvest.Abstractions;
+using HeroesOfHarvest.UI.Presenters.Abstractions;
+
 namespace HeroesOfHarvest.GameStates
 {
-    using Abstractions;
-    using UI.Presenters.Abstractions;
-
     public class PauseMenuState : PresentableStateHandlerBase<GameState>, IStateHandler<GameState>
     {
         public override GameState State => GameState.Pause;

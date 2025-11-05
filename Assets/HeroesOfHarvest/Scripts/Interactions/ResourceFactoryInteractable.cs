@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Threading;
 using TMPro;
 using UnityEngine;
@@ -10,6 +11,7 @@ using HeroesOfHarvest.Input.Abstractions;
 
 namespace HeroesOfHarvest.Interactions
 {
+    [Serializable]
     public class ResourceFactoryInteractable : MapObjectInteractable, IInteractable
     {
         [field: SerializeField]
@@ -36,6 +38,14 @@ namespace HeroesOfHarvest.Interactions
             _worldUiCanvas = worldUiCanvas;
             _worldUiCanvas.worldCamera = _mainCamera;
         }
+        public override string ToSerializedString() => _resourceAmount.ToString();
+        public override void FromSerializedString(string serializedString)
+        {
+            if (int.TryParse(serializedString, out var resAmount))
+            {
+                _resourceAmount = resAmount;
+            }
+        }
 
         protected override bool OnInteraction(IInteractor interactor)
         {
@@ -53,6 +63,7 @@ namespace HeroesOfHarvest.Interactions
         private Camera _mainCamera;
         private CancellationTokenSource _cts = null;
         private Coroutine _produceCoroutine = null;
+        [SerializeField, HideInInspector]
         private int _resourceAmount = 0;
 
         private void OnEnable()
@@ -65,6 +76,7 @@ namespace HeroesOfHarvest.Interactions
             }
             _cts?.Dispose();
             _cts = new();
+            OnResourceAmountChanged();
             _produceCoroutine = StartCoroutine(ProduceCoroutine(_cts.Token));
         }
         private void OnDisable()

@@ -12,8 +12,8 @@ namespace HeroesOfHarvest.Abstractions
 
         private readonly IDictionary<GameState, IList<GameState>> _transitions = new Dictionary<GameState, IList<GameState>>()
         {
-            { GameState.Initial, new List<GameState> { GameState.Gameplay } },
-            { GameState.Gameplay, new List<GameState> { GameState.Pause } },
+            { GameState.Initial, new List<GameState> { GameState.Gameplay, GameState.Exit } },
+            { GameState.Gameplay, new List<GameState> { GameState.Pause, GameState.Exit } },
             { GameState.Pause, new List<GameState> { GameState.Gameplay, GameState.Exit } },
             { GameState.Exit, new List<GameState>() }
         };

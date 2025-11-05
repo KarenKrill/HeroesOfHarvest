@@ -30,6 +30,7 @@ namespace HeroesOfHarvest.GameStates
         }
         public void Exit()
         {
+            _stateSwitcher.TransitTo(GameState.Exit);
 #if UNITY_EDITOR
             UnityEditor.EditorApplication.ExitPlaymode();
 #else // для мобильных и веба не сработает, надо предусмотреть
