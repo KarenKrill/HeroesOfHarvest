@@ -4,7 +4,6 @@ using HeroesOfHarvest.Abstractions;
 using HeroesOfHarvest.UI.Views.Abstractions;
 using KarenKrill.UniCore.StateSystem.Abstractions;
 using KarenKrill.UniCore.UI.Presenters.Abstractions;
-using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 using UnityEngine;
 
 namespace HeroesOfHarvest.GameStates

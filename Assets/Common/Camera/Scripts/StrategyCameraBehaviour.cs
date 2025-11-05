@@ -2,7 +2,6 @@ using System.Collections;
 using System.Threading;
 using Unity.Cinemachine;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 namespace KarenKrill.Cinematics
