@@ -39,7 +39,7 @@ namespace HeroesOfHarvest
                 float t = time / duration;
                 transform.localPosition = Vector3.Lerp(startPos, endPos, t);
                 canvasGroup.alpha = Mathf.Lerp(1f, 0f, t);
-                time += Time.deltaTime;
+                time += Time.unscaledDeltaTime;
                 yield return null;
             }
 
