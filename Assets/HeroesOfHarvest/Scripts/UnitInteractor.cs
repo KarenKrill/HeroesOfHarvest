@@ -16,6 +16,7 @@ namespace HeroesOfHarvest
         public event Action<IInteractable, bool> InteractionAvailabilityChanged;
 
         public bool IsBusy => _isBusy;
+        public Vector3 WorldPosition => transform.position;
 
         [Inject]
         public void Initialize(IPlayerSession playerSession)
