@@ -14,6 +14,10 @@ namespace HeroesOfHarvest.UI.Views
 
         #endregion
 
+        #region Music
+        public float MusicVolume { get => _musicVolumeSlider.normalizedValue; set => _musicVolumeSlider.normalizedValue = value; }
+        #endregion
+
         #region Diagnostic
         public bool ShowFps { get => _showFpsToggle.isOn; set => _showFpsToggle.isOn = value; }
         #endregion
@@ -25,6 +29,8 @@ namespace HeroesOfHarvest.UI.Views
 
         [SerializeField]
         private Toggle _showFpsToggle;
+        [SerializeField]
+        private Slider _musicVolumeSlider;
         [SerializeField]
         private Button _applyButton;
         [SerializeField]

@@ -34,6 +34,7 @@ namespace HeroesOfHarvest
             Container.BindInterfacesAndSelfTo<DiagnosticsProvider>().FromInstance(_diagnosticsProvider).AsSingle();
             Container.BindInterfacesAndSelfTo<InteractionTargetRegistry>().FromNew().AsSingle();
             Container.BindInterfacesAndSelfTo<GameFlow>().AsSingle();
+            Container.BindInterfacesAndSelfTo<AudioController>().FromInstance(_audioController).AsSingle();
             InstallGameStateMachine();
             InstallViewFactory();
             InstallPresenterBindings();
@@ -49,6 +50,8 @@ namespace HeroesOfHarvest
         private DiagnosticsProvider _diagnosticsProvider;
         [SerializeField]
         private ResourceIconRepository _resourceIconRepository;
+        [SerializeField]
+        private AudioController _audioController;
 
         private void OnApplicationQuit()
         {
@@ -74,9 +77,23 @@ namespace HeroesOfHarvest
             {
                 qualityLevel = (int)QualityLevel.High;
             }
-            var showFps = PlayerPrefs.GetInt("Settings.Diagnostic.ShowFps", 0);
-            GameSettings gameSettings = new((QualityLevel)qualityLevel, showFps != 0);
-            Container.Bind<GameSettings>().To<GameSettings>().FromInstance(gameSettings);
+            var showFps = PlayerPrefs.GetInt("Settings.Diagnostics.ShowFps", 0);
+            var musicVolume = PlayerPrefs.GetFloat("Settings.Music.MusicVolume", 0);
+            musicVolume = Mathf.Clamp01(musicVolume);
+            GameSettings gameSettings = new((QualityLevel)qualityLevel, musicVolume, showFps != 0);
+            gameSettings.QualityLevelChanged += (newQualityLevel) =>
+            {
+                PlayerPrefs.SetInt("Settings.Graphics.QualityLevel", (int)newQualityLevel);
+            };
+            gameSettings.ShowFpsChanged += (newShowFps) =>
+            {
+                PlayerPrefs.SetInt("Settings.Diagnostics.ShowFps", newShowFps ? 1 : 0);
+            };
+            gameSettings.MusicVolumeChanged += (newMusicVolume) =>
+            {
+                PlayerPrefs.SetFloat("Settings.Music.MusicVolume", newMusicVolume);
+            };
+            Container.Bind<GameSettings>().To<GameSettings>().FromInstance(gameSettings).AsSingle();
         }
         private void InstallInput()
         {

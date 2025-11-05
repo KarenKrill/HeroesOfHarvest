@@ -25,13 +25,16 @@ namespace HeroesOfHarvest.UI.Presenters
         protected override void Subscribe()
         {
             _gameSettings.ShowFpsChanged += OnModelShowFpsChanged;
+            _gameSettings.MusicVolumeChanged += OnModelMusicVolumeChanged;
             View.ShowFps = _gameSettings.ShowFps;
+            View.MusicVolume = _gameSettings.MusicVolume;
             View.ApplyRequested += OnApply;
             View.CancelRequested += OnCancel;
         }
         protected override void Unsubscribe()
         {
             _gameSettings.ShowFpsChanged -= OnModelShowFpsChanged;
+            _gameSettings.MusicVolumeChanged -= OnModelMusicVolumeChanged;
             View.ApplyRequested -= OnApply;
             View.CancelRequested -= OnCancel;
         }
@@ -39,9 +42,11 @@ namespace HeroesOfHarvest.UI.Presenters
         private readonly GameSettings _gameSettings;
 
         private void OnModelShowFpsChanged(bool state) => View.ShowFps = state;
+        private void OnModelMusicVolumeChanged(float musicVolume) => View.MusicVolume = musicVolume;
         private void OnApply()
         {
             _gameSettings.ShowFps = View.ShowFps;
+            _gameSettings.MusicVolume = View.MusicVolume;
             Close?.Invoke();
         }
         private void OnCancel() => Close?.Invoke();

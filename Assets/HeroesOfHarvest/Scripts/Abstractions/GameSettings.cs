@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace HeroesOfHarvest.Abstractions
 {
@@ -28,6 +29,24 @@ namespace HeroesOfHarvest.Abstractions
 
         #endregion
 
+        #region Music
+
+        [Range(0, 1)]
+        public float MusicVolume
+        {
+            get => _musicVolume;
+            set
+            {
+                if (_musicVolume != value)
+                {
+                    _musicVolume = value;
+                    MusicVolumeChanged?.Invoke(_musicVolume);
+                }
+            }
+        }
+
+        #endregion
+
         #region Diagnostic
 
         public bool ShowFps
@@ -49,17 +68,21 @@ namespace HeroesOfHarvest.Abstractions
 
         public event Action<QualityLevel>? QualityLevelChanged;
 
+        public event Action<float>? MusicVolumeChanged;
+
         public event Action<bool>? ShowFpsChanged;
 
 #nullable restore
 
-        public GameSettings(QualityLevel qualityLevel = QualityLevel.High, bool showFps = true)
+        public GameSettings(QualityLevel qualityLevel = QualityLevel.High, float musicVolume = 1, bool showFps = true)
         {
             _qualityLevel = qualityLevel;
+            _musicVolume = musicVolume;
             _showFps = showFps;
         }
 
         private QualityLevel _qualityLevel;
+        private float _musicVolume;
         private bool _showFps;
     }
 }
