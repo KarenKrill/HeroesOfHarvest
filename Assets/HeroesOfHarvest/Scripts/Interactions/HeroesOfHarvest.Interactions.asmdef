@@ -2,6 +2,7 @@
     "name": "HeroesOfHarvest.Interactions",
     "rootNamespace": "HeroesOfHarvest.Interactions",
     "references": [
+        "GUID:6055be8ebefd69e48b49212b09b47b2f",
         "GUID:ad4846d2050bfd249af13b7f724aafd5",
         "GUID:6addbca9397d996498e0383e39055c8f",
         "GUID:70b64406575c68f4385cf2b9d0e16eff",

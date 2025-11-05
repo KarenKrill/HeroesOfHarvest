@@ -26,6 +26,7 @@ namespace HeroesOfHarvest
             InstallSettings();
             InstallInput();
             InstallLogging();
+            Container.BindInterfacesAndSelfTo<Canvas>().FromInstance(_worldUiRootCanvas).AsSingle();
             Container.BindInterfacesAndSelfTo<ResourceManager>().FromNew().AsSingle();
             Container.BindInterfacesAndSelfTo<ResourceIconRepository>().FromInstance(_resourceIconRepository).AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerSession>().FromNew().AsSingle().NonLazy();
@@ -39,6 +40,8 @@ namespace HeroesOfHarvest
 
         [SerializeField]
         private Canvas _uiRootCanvas;
+        [SerializeField]
+        private Canvas _worldUiRootCanvas;
         [SerializeField]
         private List<GameObject> _uiPrefabs;
         [SerializeField]
