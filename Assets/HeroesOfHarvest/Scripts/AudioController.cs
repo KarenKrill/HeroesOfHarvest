@@ -20,7 +20,6 @@ namespace HeroesOfHarvest
             }
             set
             {
-                Debug.LogWarning($"Set volume to {value}");
                 _audioMixer.SetFloat(_masterVolumeParameter, VolumeToDecibels(value));
             }
         }

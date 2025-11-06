@@ -48,7 +48,6 @@ namespace HeroesOfHarvest.UI.Presenters
         }
         private void RefreshResources(IReadOnlyDictionary<ResourceType, int> resources)
         {
-            Debug.Log($"Refresh resources: {resources.Count}");
             _resourcesViewInfo = new ResourceManagerItem[resources.Count];
             int resViewInfoIndex = 0;
             // can be optimized

@@ -38,7 +38,6 @@ namespace HeroesOfHarvest.Movement
                 }
                 finally
                 {
-                    Debug.Log("Cancelled null");
                     _lastSentUnit = null;
                 }
             }

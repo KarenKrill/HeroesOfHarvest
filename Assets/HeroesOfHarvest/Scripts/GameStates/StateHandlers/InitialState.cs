@@ -80,7 +80,6 @@ namespace HeroesOfHarvest.GameStates
                 {
                     serializableMapObjectRegistry.FromSerializedString(serializedMapObjectRegistry);
                 }
-                Debug.Log($"Loaded MapObjectRegistry: {serializedMapObjectRegistry}");
             }
             else
             {

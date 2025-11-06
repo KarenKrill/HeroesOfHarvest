@@ -24,7 +24,6 @@ namespace HeroesOfHarvest
         {
             _resources[resourceType] += amount;
             ResourceChanged?.Invoke(resourceType, _resources[resourceType]);
-            PrintResources();
         }
         public void RemoveResource(ResourceType resourceType, int amount)
         {
@@ -33,10 +32,5 @@ namespace HeroesOfHarvest
         }
 
         private readonly Dictionary<ResourceType, int> _resources = new();
-
-        private void PrintResources()
-        {
-            Debug.Log($"Resources: {string.Join(", ", _resources.Select(pair => $"[{pair.Key}:{pair.Value}]"))}");
-        }
     }
 }

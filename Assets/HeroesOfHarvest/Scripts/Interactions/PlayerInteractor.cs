@@ -49,13 +49,11 @@ namespace HeroesOfHarvest.Interactions
         {
             _unitMover.UnitPathCancelled -= OnUnitPathCancelled;
             _unitMover.UnitPathCompleted -= OnUnitPathCompleted;
-            Debug.LogWarning("Path cancelled");
         }
         private void OnUnitPathCompleted(IUnit unit)
         {
             _unitMover.UnitPathCancelled -= OnUnitPathCancelled;
             _unitMover.UnitPathCompleted -= OnUnitPathCompleted;
-            Debug.LogWarning("Path completed");
             if (unit is IInteractor unitInteractor)
             {
                 if (_lastInteractable.Interact(unitInteractor))
