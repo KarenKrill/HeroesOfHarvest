@@ -27,7 +27,7 @@ namespace HeroesOfHarvest.UI.Presenters
         private readonly IDiagnosticsProvider _diagnosticsProvider;
         private void OnPerfomanceInfoChanged(PerfomanceInfo perfomanceInfo)
         {
-            View.FpsText = $"FpsAvg: {perfomanceInfo.FpsAverage:0.0}";
+            View.FpsText = $"Fps: {perfomanceInfo.FpsAverage:0.0}";
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 namespace HeroesOfHarvest.Movement
@@ -134,28 +135,28 @@ namespace HeroesOfHarvest.Movement
         }
         private bool TryGetNearestRaycastHit(Ray ray, [NotNullWhen(true)] out RaycastHit? hit)
         {
-            int hitsCount;
-            if ((hitsCount = Physics.RaycastNonAlloc(ray, _raycastHits, _maxTargetDetectDistance)) > 0)
+            if (EventSystem.current == null || !EventSystem.current.IsPointerOverGameObject())
             {
-                int minIndex = 0;
-                var minDistance = Vector3.Distance(ray.origin, _raycastHits[0].point);
-                for (int i = 1; i < hitsCount; i++)
+                int hitsCount;
+                if ((hitsCount = Physics.RaycastNonAlloc(ray, _raycastHits, _maxTargetDetectDistance)) > 0)
                 {
-                    var distance = Vector3.Distance(ray.origin, _raycastHits[i].point);
-                    if (distance < minDistance)
+                    int minIndex = 0;
+                    var minDistance = Vector3.Distance(ray.origin, _raycastHits[0].point);
+                    for (int i = 1; i < hitsCount; i++)
                     {
-                        minIndex = i;
-                        minDistance = distance;
+                        var distance = Vector3.Distance(ray.origin, _raycastHits[i].point);
+                        if (distance < minDistance)
+                        {
+                            minIndex = i;
+                            minDistance = distance;
+                        }
                     }
+                    hit = _raycastHits[minIndex];
+                    return true;
                 }
-                hit = _raycastHits[minIndex];
-                return true;
             }
-            else
-            {
-                hit = null;
-                return false;
-            }
+            hit = null;
+            return false;
         }
         private bool IsWalkableRaycastHit(in RaycastHit raycastHit)
         {
