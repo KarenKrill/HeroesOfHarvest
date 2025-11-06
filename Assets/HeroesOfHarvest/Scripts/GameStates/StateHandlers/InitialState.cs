@@ -17,6 +17,7 @@ namespace HeroesOfHarvest.GameStates
             IMapObjectRegistry mapObjectRegistry,
             IPresenter<IDiagnosticInfoView> diagnosticInfoPresenter,
             IAudioController audioController,
+            IPlayerSession playerSession,
             GameSettings gameSettings)
         {
             _logger = logger;
@@ -24,6 +25,7 @@ namespace HeroesOfHarvest.GameStates
             _mapObjectRegistry = mapObjectRegistry;
             _diagnosticInfoPresenter = diagnosticInfoPresenter;
             _audioController = audioController;
+            _playerSession = playerSession;
             _gameSettings = gameSettings;
             _gameSettings.ShowFpsChanged += OnShowFpsChanged;
             _gameSettings.MusicVolumeChanged += OnMusicVolumeChanged;
@@ -51,6 +53,7 @@ namespace HeroesOfHarvest.GameStates
         private readonly IMapObjectRegistry _mapObjectRegistry;
         private readonly IPresenter<IDiagnosticInfoView> _diagnosticInfoPresenter;
         private readonly IAudioController _audioController;
+        private readonly IPlayerSession _playerSession;
 
         private void OnShowFpsChanged(bool state)
         {
@@ -84,6 +87,16 @@ namespace HeroesOfHarvest.GameStates
             else
             {
                 Debug.LogWarning($"Can't load {nameof(IMapObjectRegistry)} since it doesn't implement {nameof(IStringSerializable)} interface");
+            }
+
+            var resNames = System.Enum.GetNames(typeof(ResourceType));
+            foreach (var resName in resNames)
+            {
+                var resAmount = PlayerPrefs.GetInt($"PlayerSession.{nameof(IPlayerSession.ResourceManager)}.{resName}", -1);
+                if (resAmount > 0 && System.Enum.TryParse(typeof(ResourceType), resName, out var resType))
+                {
+                    _playerSession.ResourceManager.AddResource((ResourceType)resType, resAmount);
+                }
             }
         }
     }
