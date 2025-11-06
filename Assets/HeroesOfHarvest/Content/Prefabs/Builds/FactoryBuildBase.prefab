@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 2}
+  m_AnchoredPosition: {x: 0, y: 3}
   m_SizeDelta: {x: 10, y: 2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &5140243166540069495
@@ -102,7 +102,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 13/20
+  m_text: 'Gold
+
+    13/20'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -267,12 +269,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <EntryTransform>k__BackingField: {fileID: 6118030637614066470}
-  <ProducedResource>k__BackingField: 5
-  <ResourceAmountPerSecond>k__BackingField: 1
-  <MaxResourceAmount>k__BackingField: 20
-  <MiningAnimationTrigger>k__BackingField: StartDigging
-  <MiningStopAnimationTrigger>k__BackingField: StopWork
+  _staticMapObjectId:
+    _worldPosition: {x: 0, y: 0, z: 0}
+  <BuildConfig>k__BackingField: {fileID: 0}
   _progressTextMesh: {fileID: 2471431709091654465}
+  _resourceAmount: 0
 --- !u!1 &1332626951782674281
 GameObject:
   m_ObjectHideFlags: 0

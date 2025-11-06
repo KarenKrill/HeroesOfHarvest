@@ -88,7 +88,7 @@ namespace HeroesOfHarvest.Interactions
 
         private void OnResourceAmountChanged()
         {
-            _progressTextMesh.text = $"{_resourceAmount}/{BuildConfig.MaxResourceAmount}";
+            _progressTextMesh.text = $"{BuildConfig.ProducedResource}{Environment.NewLine}{_resourceAmount}/{BuildConfig.MaxResourceAmount}";
         }
         private void OnLookOrMove(Vector2 delta)
         {
