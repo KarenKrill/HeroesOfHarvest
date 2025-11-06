@@ -171,14 +171,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 479264506}
     m_Modifications:
-    - target: {fileID: 744133481018148349, guid: 0e4b9573f1d17074d831e6d9a14a996c, type: 3}
-      propertyPath: <ProducedResource>k__BackingField
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 744133481018148349, guid: 0e4b9573f1d17074d831e6d9a14a996c, type: 3}
-      propertyPath: <MaxResourceAmount>k__BackingField
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 2018262631005765027, guid: 0e4b9573f1d17074d831e6d9a14a996c, type: 3}
       propertyPath: m_Name
       value: CrystalMineBuild
@@ -599,6 +591,73 @@ Transform:
   - {fileID: 136118137}
   m_Father: {fileID: 462097375}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &531351544
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2045162196}
+    m_Modifications:
+    - target: {fileID: 2303799602029492402, guid: 949a9517c316b5c4080149d41f99f676, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2303799602029492402, guid: 949a9517c316b5c4080149d41f99f676, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2303799602029492402, guid: 949a9517c316b5c4080149d41f99f676, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2303799602029492402, guid: 949a9517c316b5c4080149d41f99f676, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2303799602029492402, guid: 949a9517c316b5c4080149d41f99f676, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2303799602029492402, guid: 949a9517c316b5c4080149d41f99f676, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2303799602029492402, guid: 949a9517c316b5c4080149d41f99f676, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2303799602029492402, guid: 949a9517c316b5c4080149d41f99f676, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2303799602029492402, guid: 949a9517c316b5c4080149d41f99f676, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2303799602029492402, guid: 949a9517c316b5c4080149d41f99f676, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8914927281994290077, guid: 949a9517c316b5c4080149d41f99f676, type: 3}
+      propertyPath: m_Name
+      value: GoblinDShareyko
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 949a9517c316b5c4080149d41f99f676, type: 3}
+--- !u!95 &531351545 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 746639453647145933, guid: 949a9517c316b5c4080149d41f99f676, type: 3}
+  m_PrefabInstance: {fileID: 531351544}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &531351546 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2303799602029492402, guid: 949a9517c316b5c4080149d41f99f676, type: 3}
+  m_PrefabInstance: {fileID: 531351544}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &730654884
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -607,18 +666,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 479264506}
     m_Modifications:
-    - target: {fileID: 744133481018148349, guid: 77eac1efaa94097408c0abb7401c86e4, type: 3}
-      propertyPath: <ProducedResource>k__BackingField
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 744133481018148349, guid: 77eac1efaa94097408c0abb7401c86e4, type: 3}
-      propertyPath: <MaxResourceAmount>k__BackingField
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 744133481018148349, guid: 77eac1efaa94097408c0abb7401c86e4, type: 3}
-      propertyPath: <ResourceAmountPerSecond>k__BackingField
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 2018262631005765027, guid: 77eac1efaa94097408c0abb7401c86e4, type: 3}
       propertyPath: m_Name
       value: SawmillBuild
@@ -676,66 +723,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5465552214117791551, guid: 77eac1efaa94097408c0abb7401c86e4, type: 3}
   m_PrefabInstance: {fileID: 730654884}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &818255125
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 2045162196}
-    m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: 3164219093a39ff479e1b9f7b0093443, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 3164219093a39ff479e1b9f7b0093443, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 3164219093a39ff479e1b9f7b0093443, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 3164219093a39ff479e1b9f7b0093443, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 3164219093a39ff479e1b9f7b0093443, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 3164219093a39ff479e1b9f7b0093443, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 3164219093a39ff479e1b9f7b0093443, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 3164219093a39ff479e1b9f7b0093443, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 3164219093a39ff479e1b9f7b0093443, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 3164219093a39ff479e1b9f7b0093443, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 3164219093a39ff479e1b9f7b0093443, type: 3}
-      propertyPath: m_Name
-      value: GoblinDShareyko
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3164219093a39ff479e1b9f7b0093443, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1246938927}
-  m_SourcePrefab: {fileID: 100100000, guid: 3164219093a39ff479e1b9f7b0093443, type: 3}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -790,38 +777,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5465552214117791551, guid: a397a174edd82414aacb29fef5959d39, type: 3}
   m_PrefabInstance: {fileID: 6012076629496187840}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1246938925 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 3164219093a39ff479e1b9f7b0093443, type: 3}
-  m_PrefabInstance: {fileID: 818255125}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1246938926 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3164219093a39ff479e1b9f7b0093443, type: 3}
-  m_PrefabInstance: {fileID: 818255125}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &1246938927
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1246938925}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: afb0f214cfa860540a93876d84e4f32d, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1254234955
 GameObject:
   m_ObjectHideFlags: 0
@@ -991,14 +946,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 479264506}
     m_Modifications:
-    - target: {fileID: 744133481018148349, guid: 685451d39eff729478a2ee919c81c377, type: 3}
-      propertyPath: <ProducedResource>k__BackingField
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 744133481018148349, guid: 685451d39eff729478a2ee919c81c377, type: 3}
-      propertyPath: <MaxResourceAmount>k__BackingField
-      value: 25
-      objectReference: {fileID: 0}
     - target: {fileID: 2018262631005765027, guid: 685451d39eff729478a2ee919c81c377, type: 3}
       propertyPath: m_Name
       value: IronMineBuild
@@ -1064,18 +1011,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 479264506}
     m_Modifications:
-    - target: {fileID: 744133481018148349, guid: 0b24fe49100b8c541a475b886b0944ec, type: 3}
-      propertyPath: <ProducedResource>k__BackingField
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 744133481018148349, guid: 0b24fe49100b8c541a475b886b0944ec, type: 3}
-      propertyPath: <MaxResourceAmount>k__BackingField
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 744133481018148349, guid: 0b24fe49100b8c541a475b886b0944ec, type: 3}
-      propertyPath: <ResourceAmountPerSecond>k__BackingField
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 2018262631005765027, guid: 0b24fe49100b8c541a475b886b0944ec, type: 3}
       propertyPath: m_Name
       value: QuarryBuild
@@ -1309,7 +1244,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 25
   _navMeshAgent: {fileID: 2045162201}
-  _animator: {fileID: 1246938927}
+  _animator: {fileID: 531351545}
   _maxTargetDetectDistance: 100
   _facingToTargetSpeed: 5
 --- !u!1 &2017044769
@@ -1378,7 +1313,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1246938926}
+  - {fileID: 531351546}
   m_Father: {fileID: 462097375}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &2045162197
@@ -1438,7 +1373,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7671a74399906e9408902c739602d4e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animator: {fileID: 1246938927}
+  _animator: {fileID: 531351545}
   _miningOneResourceUnitPeriodTime: 0.5
 --- !u!1001 &1243555855771249527
 PrefabInstance:
