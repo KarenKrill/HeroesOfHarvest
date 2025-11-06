@@ -368,9 +368,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0462b6362a342194cb7f101d8d9ddbb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moneyPopupPrefab: {fileID: 8134017537965800947, guid: b30274b00da8b4d45886d6f38c60bdc5, type: 3}
+  _moneyPopupPrefab: {fileID: 8082738196886684162, guid: b30274b00da8b4d45886d6f38c60bdc5, type: 3}
   "_\u0441anvas": {fileID: 5728479488680910605}
   _moneyAudioClip: {fileID: 8300000, guid: 44638f9452292e549a9f0e275d283ba8, type: 3}
+  _defaultItemsCapacity: 10
 --- !u!1 &5506642417286489457
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
+
+using KarenKrill.UniCore.Instantiattion;
 using HeroesOfHarvest.Abstractions;
 
 namespace HeroesOfHarvest
@@ -17,20 +19,20 @@ namespace HeroesOfHarvest
             _playerSession = playerSession;
             _resourceIconRepository = resourceIconRepository;
         }
-
         public void ShowResourcePopup(Vector3 position, ResourceType type, int amount)
         {
-            GameObject popupInstance = Instantiate(_moneyPopupPrefab, _ñanvas.transform);
-            var popup = popupInstance.GetComponent<ResourcePopup>();
+            var popup = _itemsPool.Get();
+            popup.transform.localPosition = Vector3.zero;
             _audioSource.PlayOneShot(_moneyAudioClip);
             if (!_resourceIconRepository.Icons.TryGetValue(type, out var icon))
             {
                 icon = null;
             }
+            popup.AnimationCompleted += OnPopupAnimationCompleted;
             popup.Show(amount, icon);
         }
 
-        [SerializeField] private GameObject _moneyPopupPrefab;
+        [SerializeField] private ResourcePopup _moneyPopupPrefab;
         [SerializeField] private Canvas _ñanvas;
         [SerializeField] private AudioClip _moneyAudioClip;
 
@@ -39,9 +41,19 @@ namespace HeroesOfHarvest
         private IResourceIconRepository _resourceIconRepository;
         private readonly Dictionary<ResourceType, int> _previousResources = new();
 
+        [SerializeField]
+        private int _defaultItemsCapacity = 10;
+
+        private ComponentPool<ResourcePopup> _itemsPool;
+
         private void Awake()
         {
             _audioSource = GetComponent<AudioSource>();
+            _itemsPool = new(_moneyPopupPrefab, _ñanvas.transform, _defaultItemsCapacity);
+        }
+        private void OnDestroy()
+        {
+            _itemsPool.Dispose();
         }
         private void OnEnable()
         {
@@ -65,6 +77,10 @@ namespace HeroesOfHarvest
             {
                 ShowResourcePopup(_playerSession.ActiveUnit.WorldPosition, type, delta);
             }
+        }
+        private void OnPopupAnimationCompleted(ResourcePopup resourcePopup)
+        {
+            _itemsPool.Release(resourcePopup);
         }
     }
 }
