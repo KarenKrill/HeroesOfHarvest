@@ -53,10 +53,13 @@ namespace HeroesOfHarvest.Movement
         private float _maxTargetDetectDistance = 100;
         [SerializeField]
         private float _facingToTargetSpeed = 5f;
+        [SerializeField]
+        private float _maxMoveActionHoldTime = .3f;
 
         private readonly RaycastHit[] _raycastHits = new RaycastHit[5];
         private Coroutine _completionMonitorCoroutine = null;
         private bool _isExternalTarget = false;
+        private double _moveActionHoldStartTime = 0;
 
         private void Awake()
         {
@@ -77,16 +80,27 @@ namespace HeroesOfHarvest.Movement
 
         private void OnStartMoveActionPerformed(InputAction.CallbackContext ctx)
         {
-            var pointerPosition = Pointer.current.position.ReadValue();
-            var mouseRay = _camera.ScreenPointToRay(pointerPosition);
-            if (TryGetNearestRaycastHit(mouseRay, out var raycastHit))
+            if (ctx.action.WasPressedThisFrame())
             {
-                if (IsWalkableRaycastHit(raycastHit.Value))
+                _moveActionHoldStartTime = ctx.startTime;
+            }
+            else if (ctx.action.WasReleasedThisFrame())
+            {
+                var holdTime = (float)(ctx.startTime - _moveActionHoldStartTime);
+                if (holdTime < _maxMoveActionHoldTime)
                 {
-                    var destination = raycastHit.Value.point;
-                    if (IsDestinationValid(destination))
+                    var pointerPosition = Pointer.current.position.ReadValue();
+                    var mouseRay = _camera.ScreenPointToRay(pointerPosition);
+                    if (TryGetNearestRaycastHit(mouseRay, out var raycastHit))
                     {
-                        _ = TryGoTo(destination, false);
+                        if (IsWalkableRaycastHit(raycastHit.Value))
+                        {
+                            var destination = raycastHit.Value.point;
+                            if (IsDestinationValid(destination))
+                            {
+                                _ = TryGoTo(destination, false);
+                            }
+                        }
                     }
                 }
             }
@@ -109,10 +123,6 @@ namespace HeroesOfHarvest.Movement
                         }
                         else _completionMonitorCoroutine ??= StartCoroutine(PathCompletionMonitorCoroutine());
                         return true;
-                    }
-                    else
-                    {
-                        Debug.LogWarning($"Partial path cancelled (destination - {destination}; last reachable point - {lastCorner}");
                     }
                 }
             }

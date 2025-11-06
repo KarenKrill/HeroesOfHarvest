@@ -86,30 +86,34 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
+      time: -0.00046837272
+      value: 0.49955976
+      inSlope: 0.50020593
+      outSlope: 0.50020593
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
+      inSlope: 0.50020593
+      outSlope: 0.50020593
+      tangentMode: 34
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.33333334
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _zoomMin: 10
-  _zoomMax: 20
+  _swipeDetectionTime: 0.1
+  _swipePositionTracehold: 0.1
+  _zoomMin: 5
+  _zoomMax: 25
   _zoomActionReference: {fileID: -7127285537845283650, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   _moveActionReference: {fileID: 4817599471783571601, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  _swipePressActionReference: {fileID: 8914123010921017014, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  _swipePointActionReference: {fileID: -4517811467210622175, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   _zoomGain: 5
   _panGain: 5
   _tiltGain: -5

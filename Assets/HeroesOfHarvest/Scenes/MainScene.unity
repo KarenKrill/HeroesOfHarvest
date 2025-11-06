@@ -827,6 +827,7 @@ MonoBehaviour:
     m_Bits: 8
   _interactor: {fileID: 105110234}
   _camera: {fileID: 330585545}
+  _maxClickHoldTime: 0.3
 --- !u!1 &1313874138
 GameObject:
   m_ObjectHideFlags: 0
@@ -1247,6 +1248,7 @@ MonoBehaviour:
   _animator: {fileID: 531351545}
   _maxTargetDetectDistance: 100
   _facingToTargetSpeed: 5
+  _maxMoveActionHoldTime: 0.3
 --- !u!1 &2017044769
 GameObject:
   m_ObjectHideFlags: 0
