@@ -29,13 +29,22 @@ namespace HeroesOfHarvest.UI.Views
         [SerializeField]
         private Button _exitButton;
 
+#if UNITY_WEBGL
+        private void Awake()
+        {
+            _exitButton.gameObject.SetActive(false);
+            Destroy(_exitButton);
+        }
+#endif
         private void OnEnable()
         {
             _resumeButton.onClick.AddListener(OnResumeButtonClicked);
             _restartButton.onClick.AddListener(OnRestartButtonClicked);
             _settingsButton.onClick.AddListener(OnSettingsButtonClicked);
             _mainMenuExitButton.onClick.AddListener(OnMainMenuExitButtonClicked);
+#if !UNITY_WEBGL
             _exitButton.onClick.AddListener(OnExitButtonClicked);
+#endif
         }
         private void OnDisable()
         {
@@ -43,13 +52,17 @@ namespace HeroesOfHarvest.UI.Views
             _restartButton.onClick.RemoveListener(OnRestartButtonClicked);
             _settingsButton.onClick.RemoveListener(OnSettingsButtonClicked);
             _mainMenuExitButton.onClick.RemoveListener(OnMainMenuExitButtonClicked);
+#if !UNITY_WEBGL
             _exitButton.onClick.RemoveListener(OnExitButtonClicked);
+#endif
         }
 
         private void OnResumeButtonClicked() => ResumeRequested?.Invoke();
         private void OnRestartButtonClicked() => RestartRequested?.Invoke();
         private void OnSettingsButtonClicked() => SettingsOpenRequested?.Invoke();
         private void OnMainMenuExitButtonClicked() => MainMenuExitRequested?.Invoke();
+#if !UNITY_WEBGL
         private void OnExitButtonClicked() => ExitRequested?.Invoke();
+#endif
     }
 }
