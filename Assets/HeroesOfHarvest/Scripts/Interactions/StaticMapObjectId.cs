@@ -42,10 +42,10 @@ namespace HeroesOfHarvest.Interactions
             return base.GetHashCode();
         }
 
-        public string ToSerializedString() => JsonUtility.ToJson(this);
+        public string ToSerializedString() => JsonUtility.ToJson(_worldPosition);
         public void FromSerializedString(string serializedString)
         {
-            JsonUtility.FromJsonOverwrite(serializedString, this);
+            JsonUtility.FromJsonOverwrite(serializedString, _worldPosition);
         }
 
         [SerializeField]
