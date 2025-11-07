@@ -51,6 +51,18 @@ namespace HeroesOfHarvest.Interactions
         {
             return true;
         }
+        protected override void OnInteractionAvailabilityChanged(bool available)
+        {
+            base.OnInteractionAvailabilityChanged(available);
+            if (available)
+            {
+                Cursor.SetCursor(_interactionCursor.texture2D, _interactionCursor.hotspot, CursorMode.Auto);
+            }
+            else
+            {
+                Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+            }
+        }
 
         [SerializeField]
         private TextMeshPro _progressTextMesh;
@@ -65,6 +77,8 @@ namespace HeroesOfHarvest.Interactions
         private Coroutine _produceCoroutine = null;
         [SerializeField, HideInInspector]
         private int _resourceAmount = 0;
+        [SerializeField]
+        private CursorSettings _interactionCursor;
 
         private void OnEnable()
         {
@@ -112,5 +126,13 @@ namespace HeroesOfHarvest.Interactions
             }
             _produceCoroutine = null;
         }
+
+        [Serializable]
+        private class CursorSettings
+        {
+            public Texture2D texture2D;
+            public Vector2 hotspot;
+        }
     }
+
 }

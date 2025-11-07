@@ -8,10 +8,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 301617448939607863, guid: a764568d8b726ce4fb0cc592176cbe0a, type: 3}
-      propertyPath: <BuildConfig>k__BackingField
-      value: 
-      objectReference: {fileID: 11400000, guid: aef27e3ea742b894e9b98722c9b379a9, type: 2}
     - target: {fileID: 1332626951782674281, guid: a764568d8b726ce4fb0cc592176cbe0a, type: 3}
       propertyPath: m_Name
       value: GoldMineBuild

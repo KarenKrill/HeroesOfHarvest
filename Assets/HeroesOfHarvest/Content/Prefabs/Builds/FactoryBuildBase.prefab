@@ -271,9 +271,12 @@ MonoBehaviour:
   <EntryTransform>k__BackingField: {fileID: 6118030637614066470}
   _staticMapObjectId:
     _worldPosition: {x: 0, y: 0, z: 0}
-  <BuildConfig>k__BackingField: {fileID: 0}
+  <BuildConfig>k__BackingField: {fileID: 11400000, guid: aef27e3ea742b894e9b98722c9b379a9, type: 2}
   _progressTextMesh: {fileID: 2471431709091654465}
   _resourceAmount: 0
+  _interactionCursor:
+    texture2D: {fileID: 2800000, guid: e5d2bda90a8db6042921330a72764423, type: 3}
+    hotspot: {x: 64, y: 64}
 --- !u!1 &1332626951782674281
 GameObject:
   m_ObjectHideFlags: 0

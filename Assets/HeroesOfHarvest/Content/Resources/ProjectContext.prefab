@@ -451,7 +451,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0.696
+  m_MatchWidthOrHeight: 0.345
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -593,6 +593,7 @@ MonoBehaviour:
   - {fileID: 3657630308797553860, guid: d2119769af669c94f8a74e556757f544, type: 3}
   - {fileID: 3657630308797553860, guid: fb28301b838f9214fa287678afee9d3c, type: 3}
   - {fileID: 8134017537965800947, guid: cf6e4ebd957f8bf4f9e7c06040248e91, type: 3}
+  - {fileID: 8134017537965800947, guid: 248b4d13d49083d439cb479d1001a3e2, type: 3}
   _diagnosticsProvider: {fileID: 1573532580524690398}
   _resourceIconRepository: {fileID: 11400000, guid: f309a342ed5dc714380c2590cc18868d, type: 2}
   _audioController: {fileID: 1633306615443402855}
