@@ -23,6 +23,7 @@ namespace HeroesOfHarvest
     {
         public override void InstallBindings()
         {
+            Container.BindInterfacesAndSelfTo<SaveService>().FromNew().AsSingle();
             InstallSettings();
             InstallInput();
             InstallLogging();
@@ -81,18 +82,6 @@ namespace HeroesOfHarvest
             var musicVolume = PlayerPrefs.GetFloat("Settings.Music.MusicVolume", 0);
             musicVolume = Mathf.Clamp01(musicVolume);
             GameSettings gameSettings = new((QualityLevel)qualityLevel, musicVolume, showFps != 0);
-            gameSettings.QualityLevelChanged += (newQualityLevel) =>
-            {
-                PlayerPrefs.SetInt("Settings.Graphics.QualityLevel", (int)newQualityLevel);
-            };
-            gameSettings.ShowFpsChanged += (newShowFps) =>
-            {
-                PlayerPrefs.SetInt("Settings.Diagnostics.ShowFps", newShowFps ? 1 : 0);
-            };
-            gameSettings.MusicVolumeChanged += (newMusicVolume) =>
-            {
-                PlayerPrefs.SetFloat("Settings.Music.MusicVolume", newMusicVolume);
-            };
             Container.Bind<GameSettings>().To<GameSettings>().FromInstance(gameSettings).AsSingle();
         }
         private void InstallInput()

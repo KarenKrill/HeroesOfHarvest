@@ -13,6 +13,7 @@ namespace HeroesOfHarvest.GameStates
         public GameState State => GameState.Initial;
 
         public InitialState(ILogger logger,
+            ISaveService saveService,
             IGameFlow gameFlow,
             IMapObjectRegistry mapObjectRegistry,
             IPresenter<IDiagnosticInfoView> diagnosticInfoPresenter,
@@ -21,6 +22,7 @@ namespace HeroesOfHarvest.GameStates
             GameSettings gameSettings)
         {
             _logger = logger;
+            _saveService = saveService;
             _gameFlow = gameFlow;
             _mapObjectRegistry = mapObjectRegistry;
             _diagnosticInfoPresenter = diagnosticInfoPresenter;
@@ -40,6 +42,7 @@ namespace HeroesOfHarvest.GameStates
             }
             _audioController.MasterVolume = _gameSettings.MusicVolume;
             LoadSavedData();
+            _saveService.RunInBackground();
             _gameFlow.StartGameplay();
         }
         public void Exit(GameState nextState)
@@ -48,6 +51,7 @@ namespace HeroesOfHarvest.GameStates
         }
 
         private readonly ILogger _logger;
+        private readonly ISaveService _saveService;
         private readonly IGameFlow _gameFlow;
         private readonly GameSettings _gameSettings;
         private readonly IMapObjectRegistry _mapObjectRegistry;
