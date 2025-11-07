@@ -20,17 +20,17 @@ namespace HeroesOfHarvest
 #if UNITY_WEBGL
             _cts?.Dispose();
             _cts = new();
-            _ = UniTask.RunOnThreadPool(() =>
+            _ = UniTask.RunOnThreadPool(async () =>
             {
                 while (!_cts.IsCancellationRequested)
                 {
-                    UniTask.WaitForSeconds(1);
+                    await UniTask.WaitForSeconds(1);
                     if (_isSettingsOrResourcesChanged || UpdateIfMapRegistryChanged())
                     {
                         _isSettingsOrResourcesChanged = false;
-                        UniTask.SwitchToMainThread();
+                        await UniTask.SwitchToMainThread();
                         PlayerPrefs.Save();
-                        UniTask.SwitchToThreadPool();
+                        await UniTask.SwitchToThreadPool();
                     }
                 }
             }).ContinueWith(() =>
