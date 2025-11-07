@@ -1,7 +1,7 @@
-using UnityEngine;
 using Cysharp.Threading.Tasks;
 using HeroesOfHarvest.Abstractions;
 using System.Threading;
+using UnityEngine;
 
 namespace HeroesOfHarvest
 {
@@ -28,7 +28,9 @@ namespace HeroesOfHarvest
                     if (_isSettingsOrResourcesChanged || UpdateIfMapRegistryChanged())
                     {
                         _isSettingsOrResourcesChanged = false;
+                        UniTask.SwitchToMainThread();
                         PlayerPrefs.Save();
+                        UniTask.SwitchToThreadPool();
                     }
                 }
             }).ContinueWith(() =>
@@ -78,13 +80,9 @@ namespace HeroesOfHarvest
                 _isSettingsOrResourcesChanged = true;
 #endif
             };
-            _playerSession.ResourceManager.ResourceChanged += (ResourceType type, int amount) =>
+            _playerSession.ResourceManager.ResourceChanged += (type, amount) =>
             {
-                var resources = _playerSession.ResourceManager.GetResources();
-                foreach (var res in resources)
-                {
-                    PlayerPrefs.SetInt($"PlayerSession.{nameof(IPlayerSession.ResourceManager)}.{res.Key}", res.Value);
-                }
+                PlayerPrefs.SetInt($"PlayerSession.{nameof(IPlayerSession.ResourceManager)}.{type}", amount);
 #if UNITY_WEBGL
                 _isSettingsOrResourcesChanged = true;
 #endif
