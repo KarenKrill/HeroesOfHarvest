@@ -30,7 +30,7 @@ namespace HeroesOfHarvest.Interactions
             }
             base.Awake();
         }
-        protected void OnDestroy()
+        protected virtual void OnDestroy()
         {
             if (_mapObjectRegistry.TryGetMapObject(_staticMapObjectId, out _))
             {

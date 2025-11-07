@@ -3,6 +3,7 @@ using System.Collections;
 using System.Threading;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Zenject;
 
 using KarenKrill.UniCore.Interactions.Abstractions;
@@ -47,6 +48,17 @@ namespace HeroesOfHarvest.Interactions
             }
         }
 
+        protected override void Awake()
+        {
+            _infoUiPanel.transform.SetParent(_worldUiCanvas.transform);
+            base.Awake();
+        }
+        protected override void OnDestroy()
+        {
+            Destroy(_infoUiPanel.gameObject);
+            base.OnDestroy();
+        }
+
         protected override bool OnInteraction(IInteractor interactor)
         {
             return true;
@@ -65,7 +77,9 @@ namespace HeroesOfHarvest.Interactions
         }
 
         [SerializeField]
-        private TextMeshPro _progressTextMesh;
+        private UIBehaviour _infoUiPanel;
+        [SerializeField]
+        private TextMeshProUGUI _progressTextMesh;
 
         private IStrategyGameActionsProvider _actionsProvider;
         /// <summary>
@@ -92,12 +106,14 @@ namespace HeroesOfHarvest.Interactions
             _cts = new();
             OnResourceAmountChanged();
             _produceCoroutine = StartCoroutine(ProduceCoroutine(_cts.Token));
+            _infoUiPanel.gameObject.SetActive(true);
         }
         private void OnDisable()
         {
             _actionsProvider.CameraLook -= OnLookOrMove;
             _actionsProvider.CameraMove -= OnLookOrMove;
             _cts.Cancel();
+            _infoUiPanel.gameObject.SetActive(false);
         }
 
         private void OnResourceAmountChanged()
@@ -106,8 +122,8 @@ namespace HeroesOfHarvest.Interactions
         }
         private void OnLookOrMove(Vector2 delta)
         {
-            _progressTextMesh.transform.LookAt(_mainCamera.transform, _mainCamera.transform.up);
-            _progressTextMesh.transform.Rotate(0, 180, 0);
+            _infoUiPanel.transform.LookAt(_mainCamera.transform, _mainCamera.transform.up);
+            _infoUiPanel.transform.Rotate(0, 180, 0);
         }
         private IEnumerator ProduceCoroutine(CancellationToken cancellationToken)
         {
