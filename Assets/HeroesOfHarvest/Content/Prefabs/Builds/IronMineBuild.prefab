@@ -12,6 +12,18 @@ PrefabInstance:
       propertyPath: <BuildConfig>k__BackingField
       value: 
       objectReference: {fileID: 11400000, guid: 5e7269d0838fb544a96799cc2c0c9ad3, type: 2}
+    - target: {fileID: 301617448939607863, guid: a764568d8b726ce4fb0cc592176cbe0a, type: 3}
+      propertyPath: _interactionCursor.hotspot.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 301617448939607863, guid: a764568d8b726ce4fb0cc592176cbe0a, type: 3}
+      propertyPath: _interactionCursor.hotspot.y
+      value: 82
+      objectReference: {fileID: 0}
+    - target: {fileID: 301617448939607863, guid: a764568d8b726ce4fb0cc592176cbe0a, type: 3}
+      propertyPath: _interactionCursor.texture2D
+      value: 
+      objectReference: {fileID: 2800000, guid: 60b0063878a37a64abf93775e4b1e238, type: 3}
     - target: {fileID: 1332626951782674281, guid: a764568d8b726ce4fb0cc592176cbe0a, type: 3}
       propertyPath: m_Name
       value: IronMineBuild
