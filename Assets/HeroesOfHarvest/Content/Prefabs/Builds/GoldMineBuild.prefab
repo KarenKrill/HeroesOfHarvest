@@ -10,11 +10,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 301617448939607863, guid: a764568d8b726ce4fb0cc592176cbe0a, type: 3}
       propertyPath: _interactionCursor.hotspot.x
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 301617448939607863, guid: a764568d8b726ce4fb0cc592176cbe0a, type: 3}
       propertyPath: _interactionCursor.hotspot.y
-      value: 82
+      value: 41
       objectReference: {fileID: 0}
     - target: {fileID: 301617448939607863, guid: a764568d8b726ce4fb0cc592176cbe0a, type: 3}
       propertyPath: _interactionCursor.texture2D
