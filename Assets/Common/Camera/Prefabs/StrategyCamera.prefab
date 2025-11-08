@@ -81,7 +81,7 @@ MonoBehaviour:
   _inputAxisController: {fileID: 2271156422835239003}
   _cameraTarget: {fileID: 3748625178865255866}
   _mainCameraTransform: {fileID: 0}
-  _targetSpeed: 5
+  _targetSpeed: 10
   _targetSpeedCurve:
     serializedVersion: 2
     m_Curve:
