@@ -2,11 +2,13 @@
     "name": "HeroesOfHarvest.GameStates",
     "rootNamespace": "HeroesOfHarvest.GameStates",
     "references": [
+        "GUID:f51ebe6a0ceec4240a699833d6309b23",
         "GUID:eb77829cf584bef44aef3b2d63d955db",
         "GUID:a00509254bb803a4d89b998f2d85ff80",
         "GUID:6addbca9397d996498e0383e39055c8f",
         "GUID:760c2e9496ca26e4d8f30deca2d52b53",
         "GUID:7a46791a36c29db4382df4ea59e1f085",
+        "GUID:af41cadab0fbc384c9bdd4787552af18",
         "GUID:f6e1d2a21bbc1ee42b8d01ce5e90444c",
         "GUID:0ada9944fe032dc4eb70c14eacf34730",
         "GUID:593790f6cd5b01a4ca4142e240878b0b",

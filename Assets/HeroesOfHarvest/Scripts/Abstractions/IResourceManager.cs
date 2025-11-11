@@ -7,7 +7,9 @@ namespace HeroesOfHarvest.Abstractions
     {
         event Action<ResourceType, int> ResourceChanged;
 
-        IReadOnlyDictionary<ResourceType, int> GetResources();
+        IReadOnlyDictionary<ResourceType, int> Resources { get; }
+        bool FreezeResourceChanged { get; set; }
+
         void AddResource(ResourceType resourceType, int amount);
         void RemoveResource(ResourceType resourceType, int amount);
     }

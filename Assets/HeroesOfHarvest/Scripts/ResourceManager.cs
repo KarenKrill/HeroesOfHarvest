@@ -10,6 +10,8 @@ namespace HeroesOfHarvest
     public class ResourceManager : IResourceManager
     {
         public event Action<ResourceType, int> ResourceChanged;
+        public IReadOnlyDictionary<ResourceType, int> Resources => _resources;
+        public bool FreezeResourceChanged { get; set; } = false;
 
         public ResourceManager()
         {
@@ -19,16 +21,21 @@ namespace HeroesOfHarvest
                 _resources.Add(resType, 0);
             }
         }
-        public IReadOnlyDictionary<ResourceType, int> GetResources() => _resources;
         public void AddResource(ResourceType resourceType, int amount)
         {
             _resources[resourceType] += amount;
-            ResourceChanged?.Invoke(resourceType, _resources[resourceType]);
+            if (!FreezeResourceChanged)
+            {
+                ResourceChanged?.Invoke(resourceType, _resources[resourceType]);
+            }
         }
         public void RemoveResource(ResourceType resourceType, int amount)
         {
             _resources[resourceType] -= amount;
-            ResourceChanged?.Invoke(resourceType, _resources[resourceType]);
+            if (!FreezeResourceChanged)
+            {
+                ResourceChanged?.Invoke(resourceType, _resources[resourceType]);
+            }
         }
 
         private readonly Dictionary<ResourceType, int> _resources = new();

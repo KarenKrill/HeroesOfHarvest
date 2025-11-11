@@ -2,6 +2,7 @@
     "name": "KarenKrill.DataStorage",
     "rootNamespace": "KarenKrill.DataStorage",
     "references": [
+        "GUID:f51ebe6a0ceec4240a699833d6309b23",
         "GUID:fe25561d224ed4743af4c60938a59d0b",
         "GUID:5540e30183c82e84b954c033c388e06c",
         "GUID:be0d2672886cc45b2bcea5a5053a5347",
