@@ -15,6 +15,8 @@ namespace HeroesOfHarvest.Interactions
     [Serializable]
     public class ResourceFactoryInteractable : MapObjectInteractable, IInteractable
     {
+        public override event Action StateChanged;
+
         [field: SerializeField]
         public FactoryBuildConfig BuildConfig { get; private set; }
         public int ResourceAmount
@@ -51,12 +53,20 @@ namespace HeroesOfHarvest.Interactions
         protected override void Awake()
         {
             _infoUiPanel.transform.SetParent(_worldUiCanvas.transform);
+            _infoUiPanel.gameObject.SetActive(false);
             base.Awake();
         }
         protected override void OnDestroy()
         {
-            Destroy(_infoUiPanel.gameObject);
+            if (!_isAppQuit && _infoUiPanel != null)
+            {
+                Destroy(_infoUiPanel.gameObject);
+            }
             base.OnDestroy();
+        }
+        protected virtual void OnApplicationQuit()
+        {
+            _isAppQuit = true;
         }
 
         protected override bool OnInteraction(IInteractor interactor)
@@ -80,6 +90,10 @@ namespace HeroesOfHarvest.Interactions
         private UIBehaviour _infoUiPanel;
         [SerializeField]
         private TextMeshProUGUI _progressTextMesh;
+        [SerializeField]
+        private CursorSettings _interactionCursor;
+        [SerializeField, HideInInspector]
+        private int _resourceAmount = 0;
 
         private IStrategyGameActionsProvider _actionsProvider;
         /// <summary>
@@ -89,10 +103,7 @@ namespace HeroesOfHarvest.Interactions
         private Camera _mainCamera;
         private CancellationTokenSource _cts = null;
         private Coroutine _produceCoroutine = null;
-        [SerializeField, HideInInspector]
-        private int _resourceAmount = 0;
-        [SerializeField]
-        private CursorSettings _interactionCursor;
+        private bool _isAppQuit = false;
 
         private void OnEnable()
         {
@@ -106,6 +117,7 @@ namespace HeroesOfHarvest.Interactions
             _cts = new();
             OnResourceAmountChanged();
             _produceCoroutine = StartCoroutine(ProduceCoroutine(_cts.Token));
+            OnLookOrMove(Vector2.zero);
             _infoUiPanel.gameObject.SetActive(true);
         }
         private void OnDisable()
@@ -113,12 +125,16 @@ namespace HeroesOfHarvest.Interactions
             _actionsProvider.CameraLook -= OnLookOrMove;
             _actionsProvider.CameraMove -= OnLookOrMove;
             _cts.Cancel();
-            _infoUiPanel.gameObject.SetActive(false);
+            if (!_isAppQuit && _infoUiPanel != null && _infoUiPanel.gameObject != null)
+            {
+                _infoUiPanel.gameObject.SetActive(false);
+            }
         }
 
         private void OnResourceAmountChanged()
         {
             _progressTextMesh.text = $"{BuildConfig.ProducedResource}{Environment.NewLine}{_resourceAmount}/{BuildConfig.MaxResourceAmount}";
+            StateChanged?.Invoke();
         }
         private void OnLookOrMove(Vector2 delta)
         {
