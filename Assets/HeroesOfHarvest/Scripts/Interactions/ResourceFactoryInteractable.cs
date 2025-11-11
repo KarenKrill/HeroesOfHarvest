@@ -122,8 +122,7 @@ namespace HeroesOfHarvest.Interactions
         }
         private void OnLookOrMove(Vector2 delta)
         {
-            _infoUiPanel.transform.forward = -_mainCamera.transform.forward;
-            _infoUiPanel.transform.Rotate(0, 180, 0);
+            _infoUiPanel.transform.forward = _mainCamera.transform.forward;
         }
         private IEnumerator ProduceCoroutine(CancellationToken cancellationToken)
         {
