@@ -1,6 +1,5 @@
 #nullable enable
 
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
@@ -8,9 +7,6 @@ namespace HeroesOfHarvest.Abstractions
 {
     public interface IMapObjectRegistry
     {
-        event Action<IMapObject> Registred;
-        event Action<IMapObject> Unregistred;
-
         IReadOnlyDictionary<IMapObjectId, IMapObject> RegistredObjects { get; }
 
         void Register(IMapObjectId id, IMapObject mapObject);

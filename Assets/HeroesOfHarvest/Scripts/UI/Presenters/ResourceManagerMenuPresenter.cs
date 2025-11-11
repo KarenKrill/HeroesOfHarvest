@@ -42,7 +42,7 @@ namespace HeroesOfHarvest.UI.Presenters
         }
         private void UpdateResourcesIfNeeded()
         {
-            var resources = _resourceManager.Resources;
+            var resources = _resourceManager.GetResources();
             // TODO: Partial change functionality should be implemented here by refactoring ResourceManagerMenuItem and ResourceManagerMenuView
             RefreshResources(resources);
         }

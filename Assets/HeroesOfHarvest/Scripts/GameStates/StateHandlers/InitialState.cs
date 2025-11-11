@@ -1,18 +1,10 @@
 ﻿#nullable enable
 
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Threading.Tasks;
-using UnityEngine;
-using Cysharp.Threading.Tasks;
-
-using KarenKrill.DataStorage.Abstractions;
-using KarenKrill.UniCore.StateSystem.Abstractions;
-using KarenKrill.UniCore.UI.Presenters.Abstractions;
-
 using HeroesOfHarvest.Abstractions;
 using HeroesOfHarvest.UI.Views.Abstractions;
+using KarenKrill.UniCore.StateSystem.Abstractions;
+using KarenKrill.UniCore.UI.Presenters.Abstractions;
+using UnityEngine;
 
 namespace HeroesOfHarvest.GameStates
 {
@@ -21,38 +13,37 @@ namespace HeroesOfHarvest.GameStates
         public GameState State => GameState.Initial;
 
         public InitialState(ILogger logger,
+            ISaveService saveService,
             IGameFlow gameFlow,
             IMapObjectRegistry mapObjectRegistry,
             IPresenter<IDiagnosticInfoView> diagnosticInfoPresenter,
             IAudioController audioController,
             IPlayerSession playerSession,
-            GameSettings gameSettings,
-            IDataStorage dataStorage)
+            GameSettings gameSettings)
         {
             _logger = logger;
+            _saveService = saveService;
             _gameFlow = gameFlow;
             _mapObjectRegistry = mapObjectRegistry;
             _diagnosticInfoPresenter = diagnosticInfoPresenter;
             _audioController = audioController;
             _playerSession = playerSession;
-            _dataStorage = dataStorage;
             _gameSettings = gameSettings;
+            _gameSettings.ShowFpsChanged += OnShowFpsChanged;
+            _gameSettings.MusicVolumeChanged += OnMusicVolumeChanged;
         }
         public void Enter(GameState prevState, object? context = null)
         {
             _logger.Log($"{nameof(InitialState)}.{nameof(Enter)}()");
-            _ = UniTask.RunOnThreadPool(async () =>
+            if (_gameSettings.ShowFps)
             {
-                try
-                {
-                    await _dataStorage.InitializeAsync();
-                    await OnDataStorageInitializedAsync();
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogError(nameof(InitialState), $"{ex.GetType()} occured while trying to initialize data storage: {ex}");
-                }
-            });
+                _logger.LogWarning(nameof(InitialState), "Enable diagnostics");
+                _diagnosticInfoPresenter.Enable();
+            }
+            _audioController.MasterVolume = _gameSettings.MusicVolume;
+            LoadSavedData();
+            _saveService.RunInBackground();
+            _gameFlow.StartGameplay();
         }
         public void Exit(GameState nextState)
         {
@@ -60,171 +51,55 @@ namespace HeroesOfHarvest.GameStates
         }
 
         private readonly ILogger _logger;
+        private readonly ISaveService _saveService;
         private readonly IGameFlow _gameFlow;
         private readonly GameSettings _gameSettings;
         private readonly IMapObjectRegistry _mapObjectRegistry;
         private readonly IPresenter<IDiagnosticInfoView> _diagnosticInfoPresenter;
         private readonly IAudioController _audioController;
         private readonly IPlayerSession _playerSession;
-        private readonly IDataStorage _dataStorage;
-        private readonly Dictionary<string, object?> _saveSettingsData = new() { { "Settings", null } };
-        private readonly Dictionary<string, Type> _loadSettingsMetadata = new() { { "Settings", typeof(GameSettings) } };
-        private readonly Dictionary<string, object?> _saveResourceData = new()
-        {
-            { "MapObjectRegistry", null },
-            { "ResourceManagerData", null }
-        };
-        private readonly Dictionary<string, Type> _loadResourceMetadata = new()
-        {
-            { "MapObjectRegistry", typeof(string) },
-            { "ResourceManagerData", typeof(Dictionary<ResourceType, int>) }
-        };
-        private bool _isResourcesSaveStarted = false;
-        private bool _isResourceDataDirty = false;
-        
 
-        private async UniTask OnDataStorageInitializedAsync()
-        {
-            _saveSettingsData["Settings"] = _gameSettings;
-            async UniTask SaveGameSettingsAsync() => await _dataStorage.SaveAsync(_saveSettingsData);
-            _gameSettings.SettingsChanged += async () => await UniTask.RunOnThreadPool(SaveGameSettingsAsync);
-            _gameSettings.ShowFpsChanged += OnShowFpsChanged;
-            _gameSettings.MusicVolumeChanged += OnMusicVolumeChanged;
-            _gameSettings.QualityLevelChanged += OnQualityLevelChanged;
-            await UniTask.SwitchToMainThread();
-            if (_gameSettings.ShowFps)
-            {
-                _diagnosticInfoPresenter.Enable();
-            }
-            _audioController.MasterVolume = _gameSettings.MusicVolume;
-            await UniTask.SwitchToThreadPool();
-
-            _saveResourceData["ResourceManagerData"] = _playerSession.ResourceManager.Resources;
-            _playerSession.ResourceManager.ResourceChanged += OnResourceChanged;
-            _mapObjectRegistry.Registred += (mapObject) =>
-            {
-                mapObject.StateChanged += OnResourceDataChanged;
-            };
-            _mapObjectRegistry.Unregistred += (mapObject) =>
-            {
-                mapObject.StateChanged -= OnResourceDataChanged;
-            };
-
-            try
-            {
-                var data = await _dataStorage.LoadAsync(_loadSettingsMetadata);
-                if (data.TryGetValue("Settings", out var gameSettingsObj) && gameSettingsObj is GameSettings settings)
-                {
-                    await UniTask.SwitchToMainThread();
-                    _gameSettings.FreezeSettingsChanged = true;
-                    _gameSettings.ShowFps = settings.ShowFps;
-                    _gameSettings.MusicVolume = Mathf.Clamp01(settings.MusicVolume);
-                    _gameSettings.QualityLevel = settings.QualityLevel;
-                    _gameSettings.FreezeSettingsChanged = false;
-                    await UniTask.SwitchToThreadPool();
-                }
-                await LoadSavedDataAsync();
-                await UniTask.SwitchToMainThread();
-                _gameFlow.StartGameplay();
-            }
-            catch(Exception ex)
-            {
-                _logger.LogError(nameof(InitialState), $"Player data loading failed: {ex}");
-            }
-        }
         private void OnShowFpsChanged(bool state)
         {
             if (state)
             {
+                _logger.LogWarning(nameof(InitialState), "Enable diagnostics");
                 _diagnosticInfoPresenter.Enable();
             }
             else
             {
+                _logger.LogWarning(nameof(InitialState), "Disable diagnostics");
                 _diagnosticInfoPresenter.Disable();
             }
-            _ = UniTask.RunOnThreadPool(async () => await _dataStorage.SaveAsync(_saveSettingsData));
         }
         private void OnMusicVolumeChanged(float value)
         {
             _audioController.MasterVolume = value;
-            _ = UniTask.RunOnThreadPool(async () => await _dataStorage.SaveAsync(_saveSettingsData));
-        }
-        private void OnQualityLevelChanged(Abstractions.QualityLevel qualityLevel)
-        {
-            _ = UniTask.RunOnThreadPool(async () => await _dataStorage.SaveAsync(_saveSettingsData));
-        }
-        private void OnResourceChanged(ResourceType type, int amount) => OnResourceDataChanged();
-        private void OnResourceDataChanged()
-        {
-            _isResourceDataDirty = true;
-            if (!_isResourcesSaveStarted)
-            {
-                _isResourcesSaveStarted = true;
-                _ = UniTask.RunOnThreadPool(SaveResourcesDataAsync);
-            }
-        }
-        private async Task SaveResourcesDataAsync()
-        {
-            var stopwatch = new Stopwatch();
-            var updatePeriodTime = .5f;
-            while (_isResourceDataDirty)
-            {
-                _isResourceDataDirty = false;
-                stopwatch.Restart();
-                _saveResourceData["ResourceManagerData"] = _playerSession.ResourceManager.Resources;
-                if (_mapObjectRegistry is IStringSerializable serializableMapObjectRegistry)
-                {
-                    await UniTask.SwitchToMainThread();
-                    _saveResourceData["MapObjectRegistry"] = serializableMapObjectRegistry.ToSerializedString();
-                    await UniTask.SwitchToThreadPool();
-                }
-                await _dataStorage.SaveAsync(_saveResourceData);
-                stopwatch.Stop();
-                var elapsedTime = stopwatch.ElapsedMilliseconds / 1000f;
-                if (elapsedTime < updatePeriodTime)
-                {
-                    await UniTask.WaitForSeconds(updatePeriodTime - elapsedTime);
-                }
-            }
-            _isResourcesSaveStarted = false;
         }
 
-        private async Task LoadSavedDataAsync()
+        private void LoadSavedData()
         {
-            var resourcesData = await _dataStorage.LoadAsync(_loadResourceMetadata);
+            // load map objects to the registry
             if (_mapObjectRegistry is IStringSerializable serializableMapObjectRegistry)
             {
-                if (resourcesData.TryGetValue("MapObjectRegistry", out var mapRegistryData) &&
-                    mapRegistryData is string mapRegistryStr &&
-                    !string.IsNullOrEmpty(mapRegistryStr))
+                var serializedMapObjectRegistry = PlayerPrefs.GetString("MapObjectRegistry");
+                if (!string.IsNullOrEmpty(serializedMapObjectRegistry))
                 {
-                    serializableMapObjectRegistry.FromSerializedString(mapRegistryStr);
+                    serializableMapObjectRegistry.FromSerializedString(serializedMapObjectRegistry);
                 }
             }
             else
             {
-                _logger.LogWarning(nameof(InitialState), $"Can't load {nameof(IMapObjectRegistry)} since it doesn't implement {nameof(IStringSerializable)} interface");
+                Debug.LogWarning($"Can't load {nameof(IMapObjectRegistry)} since it doesn't implement {nameof(IStringSerializable)} interface");
             }
 
-            if (resourcesData.TryGetValue("ResourceManagerData", out var resourceManagerData) &&
-                resourceManagerData is Dictionary<ResourceType, int> resources)
+            var resNames = System.Enum.GetNames(typeof(ResourceType));
+            foreach (var resName in resNames)
             {
-                await UniTask.SwitchToMainThread();
-                _playerSession.ResourceManager.FreezeResourceChanged = true;
-                try
+                var resAmount = PlayerPrefs.GetInt($"PlayerSession.{nameof(IPlayerSession.ResourceManager)}.{resName}", -1);
+                if (resAmount > 0 && System.Enum.TryParse(typeof(ResourceType), resName, out var resType))
                 {
-                    foreach (var resource in resources)
-                    {
-                        var resAmount = resource.Value;
-                        if (resAmount > 0)
-                        {
-                            _playerSession.ResourceManager.AddResource(resource.Key, resAmount);
-                        }
-                    }
-                }
-                finally
-                {
-                    _playerSession.ResourceManager.FreezeResourceChanged = false;
+                    _playerSession.ResourceManager.AddResource((ResourceType)resType, resAmount);
                 }
             }
         }

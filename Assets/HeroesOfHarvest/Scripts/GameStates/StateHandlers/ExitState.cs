@@ -12,16 +12,19 @@ namespace HeroesOfHarvest.GameStates
     {
         public GameState State => GameState.Exit;
 
-        public ExitState(ILogger logger)
+        public ExitState(ILogger logger, ISaveService saveService)
         {
             _logger = logger;
+            _saveService = saveService;
         }
         public void Enter(GameState prevState, object? context = null)
         {
             _logger.Log($"{nameof(ExitState)}.{nameof(Enter)}()");
+            _saveService.Stop();
         }
         public void Exit(GameState nextState) { }
 
         private readonly ILogger _logger;
+        private readonly ISaveService _saveService;
     }
 }

@@ -1,17 +1,15 @@
-using AYellowpaper.SerializedCollections;
-using HeroesOfHarvest.Abstractions;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
+
+using AYellowpaper.SerializedCollections;
+
+using HeroesOfHarvest.Abstractions;
 
 namespace HeroesOfHarvest
 {
     public class MapObjectRegistry : IMapObjectRegistry, IStringSerializable
     {
-        public event Action<IMapObject> Registred;
-        public event Action<IMapObject> Unregistred;
-
         public IReadOnlyDictionary<IMapObjectId, IMapObject> RegistredObjects => _registredObjects;
 
         public void Register(IMapObjectId id, IMapObject mapObject)
@@ -25,14 +23,10 @@ namespace HeroesOfHarvest
                 }
             }
             _registredObjects.Add(id, mapObject);
-            Registred?.Invoke(mapObject);
         }
         public void Unregister(IMapObjectId id)
         {
-            if (_registredObjects.Remove(id, out var mapObject))
-            {
-                Unregistred?.Invoke(mapObject);
-            }
+            _registredObjects.Remove(id);
         }
         public bool TryGetMapObject(IMapObjectId mapObjectId, [NotNullWhen(true)] out IMapObject mapObject)
         {

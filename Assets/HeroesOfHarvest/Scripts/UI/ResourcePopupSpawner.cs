@@ -57,7 +57,7 @@ namespace HeroesOfHarvest
         }
         private void OnEnable()
         {
-            var resources = _playerSession.ResourceManager.Resources;
+            var resources = _playerSession.ResourceManager.GetResources();
             _previousResources.Clear();
             foreach (var resource in resources)
             {

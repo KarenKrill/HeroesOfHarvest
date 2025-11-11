@@ -13,8 +13,6 @@ using KarenKrill.UniCore.UI.Presenters.Abstractions;
 using KarenKrill.UniCore.UI.Views;
 using KarenKrill.UniCore.Utilities;
 
-using KarenKrill.DataStorage;
-
 namespace HeroesOfHarvest
 {
     using Abstractions;
@@ -25,7 +23,7 @@ namespace HeroesOfHarvest
     {
         public override void InstallBindings()
         {
-            Container.BindInterfacesAndSelfTo<CloudSaveDataStorage>().FromNew().AsSingle();
+            Container.BindInterfacesAndSelfTo<SaveService>().FromNew().AsSingle();
             InstallSettings();
             InstallInput();
             InstallLogging();
@@ -75,7 +73,16 @@ namespace HeroesOfHarvest
         }
         private void InstallSettings()
         {
-            Container.Bind<GameSettings>().To<GameSettings>().FromNew().AsSingle();
+            var qualityLevel = PlayerPrefs.GetInt("Settings.Graphics.QualityLevel", (int)QualityLevel.High);
+            if (qualityLevel < 0 || qualityLevel > (int)QualityLevel.High)
+            {
+                qualityLevel = (int)QualityLevel.High;
+            }
+            var showFps = PlayerPrefs.GetInt("Settings.Diagnostics.ShowFps", 0);
+            var musicVolume = PlayerPrefs.GetFloat("Settings.Music.MusicVolume", 0);
+            musicVolume = Mathf.Clamp01(musicVolume);
+            GameSettings gameSettings = new((QualityLevel)qualityLevel, musicVolume, showFps != 0);
+            Container.Bind<GameSettings>().To<GameSettings>().FromInstance(gameSettings).AsSingle();
         }
         private void InstallInput()
         {

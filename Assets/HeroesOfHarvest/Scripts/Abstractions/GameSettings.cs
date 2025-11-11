@@ -10,7 +10,6 @@ namespace HeroesOfHarvest.Abstractions
         High
     }
 
-    [Serializable]
     public class GameSettings
     {
         #region Graphics
@@ -24,7 +23,6 @@ namespace HeroesOfHarvest.Abstractions
                 {
                     _qualityLevel = value;
                     QualityLevelChanged?.Invoke(_qualityLevel);
-                    OnSettingsChanged();
                 }
             }
         }
@@ -43,7 +41,6 @@ namespace HeroesOfHarvest.Abstractions
                 {
                     _musicVolume = value;
                     MusicVolumeChanged?.Invoke(_musicVolume);
-                    OnSettingsChanged();
                 }
             }
         }
@@ -61,7 +58,6 @@ namespace HeroesOfHarvest.Abstractions
                 {
                     _showFps = value;
                     ShowFpsChanged?.Invoke(_showFps);
-                    OnSettingsChanged();
                 }
             }
         }
@@ -76,52 +72,17 @@ namespace HeroesOfHarvest.Abstractions
 
         public event Action<bool>? ShowFpsChanged;
 
-        public event Action? SettingsChanged;
-
 #nullable restore
 
-        public GameSettings(QualityLevel qualityLevel = QualityLevel.High, float musicVolume = 0, bool showFps = false)
+        public GameSettings(QualityLevel qualityLevel = QualityLevel.High, float musicVolume = 1, bool showFps = true)
         {
             _qualityLevel = qualityLevel;
             _musicVolume = musicVolume;
             _showFps = showFps;
         }
 
-        public bool FreezeSettingsChanged
-        {
-            set
-            {
-                if (_isSettingsChangedFreezed != value)
-                {
-                    _isSettingsChangedFreezed = value;
-                    if (!value && _isDirty)
-                    {
-                        _isDirty = false;
-                        SettingsChanged?.Invoke();
-                    }
-                }
-            }
-        }
-
-        [SerializeField]
         private QualityLevel _qualityLevel;
-        [SerializeField]
         private float _musicVolume;
-        [SerializeField]
         private bool _showFps;
-        private bool _isSettingsChangedFreezed = false;
-        private bool _isDirty = false;
-
-        private void OnSettingsChanged()
-        {
-            if (!_isSettingsChangedFreezed)
-            {
-                SettingsChanged?.Invoke();
-            }
-            else
-            {
-                _isDirty = true;
-            }
-        }
     }
 }

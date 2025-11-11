@@ -10,8 +10,6 @@ namespace HeroesOfHarvest.Interactions
     [Serializable]
     public class MapObjectInteractable : OutlineInteractableBase, IMapObject, IInteractable, IStringSerializable
     {
-        public virtual event Action StateChanged;
-
         [field: SerializeField]
         public Transform EntryTransform { get; private set; }
         public IMapObjectId Id => _staticMapObjectId;
