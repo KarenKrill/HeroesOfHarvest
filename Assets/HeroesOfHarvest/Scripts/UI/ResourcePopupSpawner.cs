@@ -39,7 +39,6 @@ namespace HeroesOfHarvest
         private AudioSource _audioSource;
         private IPlayerSession _playerSession;
         private IResourceIconRepository _resourceIconRepository;
-        private readonly Dictionary<ResourceType, int> _previousResources = new();
 
         [SerializeField]
         private int _defaultItemsCapacity = 10;
@@ -57,12 +56,6 @@ namespace HeroesOfHarvest
         }
         private void OnEnable()
         {
-            var resources = _playerSession.ResourceManager.GetResources();
-            _previousResources.Clear();
-            foreach (var resource in resources)
-            {
-                _previousResources[resource.Key] = resource.Value;
-            }
             _playerSession.ResourceManager.ResourceChanged += OnResourceChanged;
         }
         private void OnDisable()
@@ -71,11 +64,9 @@ namespace HeroesOfHarvest
         }
         private void OnResourceChanged(ResourceType type, int amount)
         {
-            var delta = amount - _previousResources[type];
-            _previousResources[type] = amount;
-            if (delta > 0)
+            if (amount > 0)
             {
-                ShowResourcePopup(_playerSession.ActiveUnit.WorldPosition, type, delta);
+                ShowResourcePopup(_playerSession.ActiveUnit.WorldPosition, type, amount);
             }
         }
         private void OnPopupAnimationCompleted(ResourcePopup resourcePopup)

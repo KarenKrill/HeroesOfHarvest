@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
 
 using HeroesOfHarvest.Abstractions;
 
@@ -10,6 +8,8 @@ namespace HeroesOfHarvest
     public class ResourceManager : IResourceManager
     {
         public event Action<ResourceType, int> ResourceChanged;
+        public IReadOnlyDictionary<ResourceType, int> Resources => _resources;
+        public bool FreezeResourceChanged { get; set; } = false;
 
         public ResourceManager()
         {
@@ -19,16 +19,36 @@ namespace HeroesOfHarvest
                 _resources.Add(resType, 0);
             }
         }
-        public IReadOnlyDictionary<ResourceType, int> GetResources() => _resources;
         public void AddResource(ResourceType resourceType, int amount)
         {
-            _resources[resourceType] += amount;
-            ResourceChanged?.Invoke(resourceType, _resources[resourceType]);
+            if (amount < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(amount), "Shouldn't be negative");
+            }
+            if (!_resources.ContainsKey(resourceType))
+            {
+                _resources[resourceType] = amount;
+            }
+            else
+            {
+                _resources[resourceType] += amount;
+            }
+            if (!FreezeResourceChanged)
+            {
+                ResourceChanged?.Invoke(resourceType, amount);
+            }
         }
         public void RemoveResource(ResourceType resourceType, int amount)
         {
+            if (amount < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(amount), "Shouldn't be negative");
+            }
             _resources[resourceType] -= amount;
-            ResourceChanged?.Invoke(resourceType, _resources[resourceType]);
+            if (!FreezeResourceChanged)
+            {
+                ResourceChanged?.Invoke(resourceType, amount);
+            }
         }
 
         private readonly Dictionary<ResourceType, int> _resources = new();
