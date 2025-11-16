@@ -23,7 +23,14 @@ namespace HeroesOfHarvest
         }
         public void AddResource(ResourceType resourceType, int amount)
         {
-            _resources[resourceType] += amount;
+            if (!_resources.ContainsKey(resourceType))
+            {
+                _resources[resourceType] = amount;
+            }
+            else
+            {
+                _resources[resourceType] += amount;
+            }
             if (!FreezeResourceChanged)
             {
                 ResourceChanged?.Invoke(resourceType, _resources[resourceType]);
