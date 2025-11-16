@@ -23,10 +23,7 @@ namespace HeroesOfHarvest.Abstractions
                 if (_qualityLevel != value)
                 {
                     _qualityLevel = value;
-                    if (!_isSettingsChangedFreezed)
-                    {
-                        QualityLevelChanged?.Invoke(_qualityLevel);
-                    }
+                    QualityLevelChanged?.Invoke(_qualityLevel);
                     OnSettingsChanged();
                 }
             }
@@ -45,10 +42,7 @@ namespace HeroesOfHarvest.Abstractions
                 if (_musicVolume != value)
                 {
                     _musicVolume = value;
-                    if (!_isSettingsChangedFreezed)
-                    {
-                        MusicVolumeChanged?.Invoke(_musicVolume);
-                    }
+                    MusicVolumeChanged?.Invoke(_musicVolume);
                     OnSettingsChanged();
                 }
             }
@@ -66,10 +60,7 @@ namespace HeroesOfHarvest.Abstractions
                 if (_showFps != value)
                 {
                     _showFps = value;
-                    if (!_isSettingsChangedFreezed)
-                    {
-                        ShowFpsChanged?.Invoke(_showFps);
-                    }
+                    ShowFpsChanged?.Invoke(_showFps);
                     OnSettingsChanged();
                 }
             }
