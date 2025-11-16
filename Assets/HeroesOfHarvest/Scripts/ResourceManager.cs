@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
 
 using HeroesOfHarvest.Abstractions;
 
@@ -23,6 +21,10 @@ namespace HeroesOfHarvest
         }
         public void AddResource(ResourceType resourceType, int amount)
         {
+            if (amount < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(amount), "Shouldn't be negative");
+            }
             if (!_resources.ContainsKey(resourceType))
             {
                 _resources[resourceType] = amount;
@@ -33,15 +35,19 @@ namespace HeroesOfHarvest
             }
             if (!FreezeResourceChanged)
             {
-                ResourceChanged?.Invoke(resourceType, _resources[resourceType]);
+                ResourceChanged?.Invoke(resourceType, amount);
             }
         }
         public void RemoveResource(ResourceType resourceType, int amount)
         {
+            if (amount < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(amount), "Shouldn't be negative");
+            }
             _resources[resourceType] -= amount;
             if (!FreezeResourceChanged)
             {
-                ResourceChanged?.Invoke(resourceType, _resources[resourceType]);
+                ResourceChanged?.Invoke(resourceType, amount);
             }
         }
 
