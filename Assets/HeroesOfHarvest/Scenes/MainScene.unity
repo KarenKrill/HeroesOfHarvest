@@ -93,8 +93,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 20201, guid: 0000000000000000f000000000000000, type: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 10ccf2bc650266d4eae396501daab8e5, type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 8da6b4879c780df43b58a694844f4092, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -424,7 +424,7 @@ Light:
   serializedVersion: 11
   m_Type: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 2
+  m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -463,7 +463,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 1
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -486,13 +486,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 410087039}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalRotation: {x: 0.25000006, y: -0.24999997, z: 0.066987306, w: 0.9330127}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 462097375}
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 30, y: -30, z: 0}
 --- !u!114 &410087042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -515,7 +515,7 @@ MonoBehaviour:
   m_ShadowRenderingLayers: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
-  m_SoftShadowQuality: 1
+  m_SoftShadowQuality: 0
 --- !u!1 &462097374
 GameObject:
   m_ObjectHideFlags: 0
@@ -1416,6 +1416,14 @@ PrefabInstance:
     - target: {fileID: 3736843565868809404, guid: 04f876909c9127440959c7348e7b27c6, type: 3}
       propertyPath: m_Name
       value: StrategyCamera
+      objectReference: {fileID: 0}
+    - target: {fileID: 6807737366818800639, guid: 04f876909c9127440959c7348e7b27c6, type: 3}
+      propertyPath: _zoomMax
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 6807737366818800639, guid: 04f876909c9127440959c7348e7b27c6, type: 3}
+      propertyPath: _zoomMin
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7705023519896794120, guid: 04f876909c9127440959c7348e7b27c6, type: 3}
       propertyPath: m_LocalPosition.y
